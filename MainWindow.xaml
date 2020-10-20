@@ -1,0 +1,56 @@
+﻿<Window x:Class="SimpleAudioPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleAudioPlayer" xmlns:gui="clr-namespace:NAudio.Gui;assembly=NAudio"
+        mc:Ignorable="d" FontSize="14"
+        Title="MainWindow" Height="450" Width="800" BorderThickness="0">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <ProgressBar x:Name="volumeDisplay" Grid.Column="1" Grid.Row="1"
+                     Minimum="0" Maximum="100"
+                     SmallChange="1" LargeChange="10" Value="50"
+                     MinWidth="100"
+                     Height="10" Width="auto"
+                     Margin="0,0,0,0"/>
+        
+        <Slider x:Name="volumeBar" Grid.Column="1" Grid.Row="2"
+                Minimum="0" Maximum="100"
+                Height="20" Width="auto"
+                Value="5" ValueChanged="volumeBar_ValueChanged" SmallChange="1" LargeChange="10"
+                Margin="0,10,0,0"/>
+
+        <Button x:Name="SongSelectBtn" Grid.Column="2" Grid.Row="1" Content="Select Song"
+                Width="100" Margin="10,0,0,0" Click="SongSelectBtn_Click"/>
+
+        <Button x:Name="SongStopBtn" Grid.Column="2" Grid.Row="2" Content="Stop Song"
+                Width="100" Margin="10,10,0,0" Click="SongStopBtn_Click"/>
+
+        <Button x:Name="SongPauseBtn" Grid.Column="2" Grid.Row="3" Content="Toggle Pause"
+                Width="100" Margin="10,10,0,0" Click="SongPauseBtn_Click"/>
+
+        <TextBlock x:Name="NowPlayingTxt" Text="Now Playing:"
+                   Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+                   Margin="0,10,0,0" HorizontalAlignment="Left" Padding="0"/>
+    </Grid>
+</Window>
