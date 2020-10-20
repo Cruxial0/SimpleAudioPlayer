@@ -24,18 +24,19 @@ namespace SimpleAudioPlayer.Audio
             if (IsSongPlaying)
             {
                 StopSong();
-                MessageBox.Show("Song was already playing. Please select your song again!");
-                return;
             }
 
-            wavePlayer = new WaveOutEvent();
-            audioFile = new AudioFileReader(filePath);
-            audioFile.Volume = localVolume;
-            wavePlayer.Init(audioFile);
-            wavePlayer.PlaybackStopped += OnPlaybackStopped;
-            wavePlayer.Play();
+            if(wavePlayer == null)
+            {
+                wavePlayer = new WaveOutEvent();
+                audioFile = new AudioFileReader(filePath);
+                audioFile.Volume = localVolume;
+                wavePlayer.Init(audioFile);
+                wavePlayer.PlaybackStopped += OnPlaybackStopped;
+                wavePlayer.Play();
 
-            IsSongPlaying = true;
+                IsSongPlaying = true;
+            }
         }
 
         public void ChangeVolume(float volume)
@@ -70,10 +71,19 @@ namespace SimpleAudioPlayer.Audio
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-            wavePlayer.Dispose();
+            if(wavePlayer != null) wavePlayer.Dispose();
+
             wavePlayer = null;
             audioFile.Dispose();
             audioFile = null;
+        }
+
+        public PlaybackState GetPlaybackState(PlaybackState playbackState)
+        {
+            if (wavePlayer == null) return PlaybackState.Stopped;
+
+            playbackState = wavePlayer.PlaybackState;
+            return playbackState;
         }
     }
 }

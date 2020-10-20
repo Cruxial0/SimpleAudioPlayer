@@ -6,6 +6,7 @@ using SimpleAudioPlayer.GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -30,12 +32,20 @@ namespace SimpleAudioPlayer
 
         private float volumePercentage;
 
-        private AudioStream AS = new AudioStream();
-        private DynamicGUI DGUI = new DynamicGUI();
+        private readonly AudioStream AS = new AudioStream();
+        private readonly DynamicGUI DGUI = new DynamicGUI();
+        private readonly DataSheet DS = new DataSheet();
+
+        private FileInfo selectedFile;
+
+        private PlaybackState playbackState;
+
+        FrameworkElement frameworkElement;
 
         public MainWindow()
         {
             InitializeComponent();
+
             volumePercentage = (float)volumeBar.Value / 100;
         }
 
@@ -50,7 +60,7 @@ namespace SimpleAudioPlayer
 
         private void SongSelectBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
             {
                 InitialDirectory = Dir,
                 Filter = ".mp3 files | *.mp3"
@@ -72,5 +82,60 @@ namespace SimpleAudioPlayer
         {
             AS.TogglePauseSong();
         }
+
+        private void SelectDirectoryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true,
+                SelectedPath = Dir,
+            };
+
+            DialogResult result = fbd.ShowDialog();
+
+            if(result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            {
+                SongList.ItemsSource = DS.PopulateSongList(fbd.SelectedPath);
+            }
+        }
+
+        private void SongList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            PropertyDescriptor propertyDescriptor = (PropertyDescriptor)e.PropertyDescriptor;
+            e.Column.Header = propertyDescriptor.DisplayName;
+            if (propertyDescriptor.DisplayName == "filePath")
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void SongList_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (selectedFile == SongList.CurrentCell.Item) return;
+
+            var asd = SongList.CurrentCell;
+
+            playbackState = AS.GetPlaybackState(playbackState);
+
+            if(playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
+            {
+                return;
+            }
+
+            if(playbackState == PlaybackState.Stopped)
+            {
+                selectedFile = SongList.CurrentCell.Item as FileInfo;
+
+                AS.PlaySong(selectedFile.filePath);
+                DGUI.NowPlaying(selectedFile.filePath, NowPlayingTxt);
+            }
+        }
+    }
+    public class FileInfo
+    {
+        public int Id { get; set; }
+        public string fileName { get; set; }
+        public string fileLength { get; set; }
+        public string filePath { get; set; }
     }
 }

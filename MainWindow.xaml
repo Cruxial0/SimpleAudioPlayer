@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SimpleAudioPlayer" xmlns:gui="clr-namespace:NAudio.Gui;assembly=NAudio"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d" FontSize="14"
-        Title="MainWindow" Height="450" Width="800" BorderThickness="0">
-    <Grid>
+        Title="Basically Better Spotify" Height="auto" Width="auto" BorderThickness="0"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="ThreeDBorderWindow">
+    <Grid OverridesDefaultStyle="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
@@ -27,30 +32,41 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <ProgressBar x:Name="volumeDisplay" Grid.Column="1" Grid.Row="1"
+        <DataGrid x:Name="SongList" Grid.Row="1" Grid.Column="1"
+                  MinHeight="200" MinWidth="300"
+                  MaxHeight="200"
+                  IsReadOnly="True"
+                  CurrentCellChanged="SongList_CurrentCellChanged"
+                  AutoGeneratingColumn="SongList_AutoGeneratingColumn"
+                  SelectionMode="Single" SelectionUnit="Cell"/>
+
+        <ProgressBar x:Name="volumeDisplay" Grid.Column="1" Grid.Row="2"
                      Minimum="0" Maximum="100"
                      SmallChange="1" LargeChange="10" Value="50"
                      MinWidth="100"
                      Height="10" Width="auto"
                      Margin="0,0,0,0"/>
-        
-        <Slider x:Name="volumeBar" Grid.Column="1" Grid.Row="2"
+
+        <Slider x:Name="volumeBar" Grid.Column="1" Grid.Row="3"
                 Minimum="0" Maximum="100"
-                Height="20" Width="auto"
+                Height="30" Width="auto"
                 Value="5" ValueChanged="volumeBar_ValueChanged" SmallChange="1" LargeChange="10"
-                Margin="0,10,0,0"/>
+                Margin="0,10,0,0" OverridesDefaultStyle="False" Background="#66000000"/>
 
-        <Button x:Name="SongSelectBtn" Grid.Column="2" Grid.Row="1" Content="Select Song"
-                Width="100" Margin="10,0,0,0" Click="SongSelectBtn_Click"/>
+        <Button x:Name="SongSelectBtn" Grid.Column="3" Grid.Row="2" Content="Select Song"
+                Width="115" Margin="10,0,0,0" Click="SongSelectBtn_Click"/>
 
-        <Button x:Name="SongStopBtn" Grid.Column="2" Grid.Row="2" Content="Stop Song"
-                Width="100" Margin="10,10,0,0" Click="SongStopBtn_Click"/>
+        <Button x:Name="SongStopBtn" Grid.Column="3" Grid.Row="3" Content="Stop Song"
+                Width="115" Margin="10,10,0,0" Click="SongStopBtn_Click"/>
 
-        <Button x:Name="SongPauseBtn" Grid.Column="2" Grid.Row="3" Content="Toggle Pause"
-                Width="100" Margin="10,10,0,0" Click="SongPauseBtn_Click"/>
+        <Button x:Name="SongPauseBtn" Grid.Column="3" Grid.Row="4" Content="Toggle Pause"
+                Width="115" Margin="10,10,0,0" Click="SongPauseBtn_Click"/>
+
+        <Button x:Name="SelectDirectoryBtn" Grid.Column="3" Grid.Row="5" Content="Select Directory"
+                Width="115" Margin="10,10,0,0" Click="SelectDirectoryBtn_Click"/>
 
         <TextBlock x:Name="NowPlayingTxt" Text="Now Playing:"
-                   Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+                   Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2"
                    Margin="0,10,0,0" HorizontalAlignment="Left" Padding="0"/>
     </Grid>
 </Window>
