@@ -5,25 +5,6 @@
              xmlns:local="clr-namespace:SimpleAudioPlayer"
              StartupUri="MainWindow.xaml">
     <wpf:Application.Resources>
-        <wpf:ResourceDictionary>
-            <wpf:ResourceDictionary.MergedDictionaries>
-                <ui:ThemeResources>
-                    <ui:ThemeResources.ThemeDictionaries>
-                        <wpf:ResourceDictionary x:Key="Light">
-                            <wpf:ResourceDictionary.MergedDictionaries>
-                                <ui:ColorPaletteResources TargetTheme="Light" Accent="Black" />
-                            </wpf:ResourceDictionary.MergedDictionaries>
-                        </wpf:ResourceDictionary>
-                        <wpf:ResourceDictionary x:Key="Dark">
-                            <wpf:ResourceDictionary.MergedDictionaries>
-                                <ui:ColorPaletteResources TargetTheme="Dark" Accent="White" />
-                            </wpf:ResourceDictionary.MergedDictionaries>
-                        </wpf:ResourceDictionary>
-                    </ui:ThemeResources.ThemeDictionaries>
-                </ui:ThemeResources>
-                <ui:XamlControlsResources />
-            </wpf:ResourceDictionary.MergedDictionaries>
-        </wpf:ResourceDictionary>
     </wpf:Application.Resources>
 </wpf:Application>
 

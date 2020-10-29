@@ -17,25 +17,27 @@ namespace SimpleAudioPlayer.Audio
         private float localVolume;
         private AudioFileReader audioFile;
 
-        private bool IsSongPlaying = false;
+        private LoopStream LS;
 
         public void PlaySong(string filePath)
         {
-            if (IsSongPlaying)
-            {
-                StopSong();
-            }
-
-            if(wavePlayer == null)
+            if (wavePlayer == null)
             {
                 wavePlayer = new WaveOutEvent();
                 audioFile = new AudioFileReader(filePath);
+
+                LS = new LoopStream(audioFile);
+
                 audioFile.Volume = localVolume;
-                wavePlayer.Init(audioFile);
+                wavePlayer.Init(LS);
                 wavePlayer.PlaybackStopped += OnPlaybackStopped;
                 wavePlayer.Play();
-
-                IsSongPlaying = true;
+            }
+            else
+            {
+                wavePlayer.Stop();
+                wavePlayer.Dispose();
+                wavePlayer = null;
             }
         }
 
@@ -48,7 +50,8 @@ namespace SimpleAudioPlayer.Audio
         public void StopSong()
         {
             wavePlayer?.Stop();
-            IsSongPlaying = false;
+            wavePlayer?.Dispose();
+            wavePlayer = null;
         }
 
         public void TogglePauseSong()
@@ -69,12 +72,24 @@ namespace SimpleAudioPlayer.Audio
             }
         }
 
+        public void ToggleLoop()
+        {
+            if(LS.EnableLooping)
+            {
+                LS.EnableLooping = false;
+            }
+            if(!LS.EnableLooping)
+            {
+                LS.EnableLooping = true;
+            }
+        }
+
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
             if(wavePlayer != null) wavePlayer.Dispose();
 
             wavePlayer = null;
-            audioFile.Dispose();
+            audioFile?.Dispose();
             audioFile = null;
         }
 

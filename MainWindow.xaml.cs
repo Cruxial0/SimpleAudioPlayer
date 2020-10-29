@@ -40,8 +40,6 @@ namespace SimpleAudioPlayer
 
         private PlaybackState playbackState;
 
-        FrameworkElement frameworkElement;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -93,7 +91,7 @@ namespace SimpleAudioPlayer
 
             DialogResult result = fbd.ShowDialog();
 
-            if(result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
                 SongList.ItemsSource = DS.PopulateSongList(fbd.SelectedPath);
             }
@@ -109,20 +107,30 @@ namespace SimpleAudioPlayer
             }
         }
 
-        private void SongList_CurrentCellChanged(object sender, EventArgs e)
+        private void SongList_SelectedCellsChanged(object sender, EventArgs e)
         {
-            if (selectedFile == SongList.CurrentCell.Item) return;
-
-            var asd = SongList.CurrentCell;
+            if (selectedFile == SongList.CurrentCell.Item as FileInfo)
+            {
+                NowPlayingTxt.Text = "null";
+            }
+            if (SongList.CurrentCell.Item == null) return;
 
             playbackState = AS.GetPlaybackState(playbackState);
 
-            if(playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
+            if (playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
             {
-                return;
+                selectedFile = SongList.CurrentCell.Item as FileInfo;
+
+                AS.StopSong();
+                Task.Delay(100).ContinueWith(_ =>
+                {
+                    AS.PlaySong(selectedFile.filePath);
+                });
+
+                DGUI.NowPlaying(selectedFile.filePath, NowPlayingTxt);
             }
 
-            if(playbackState == PlaybackState.Stopped)
+            if (playbackState == PlaybackState.Stopped)
             {
                 selectedFile = SongList.CurrentCell.Item as FileInfo;
 
@@ -130,7 +138,22 @@ namespace SimpleAudioPlayer
                 DGUI.NowPlaying(selectedFile.filePath, NowPlayingTxt);
             }
         }
+
+        private void ToggleLoopBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AS.ToggleLoop();
+        }
+
+        public void ClearGrid(object obj)
+        {
+            var dg = obj as System.Windows.Controls.DataGrid;
+            if (dg != null)
+            {
+                dg.UnselectAllCells();
+            }
+        }
     }
+
     public class FileInfo
     {
         public int Id { get; set; }

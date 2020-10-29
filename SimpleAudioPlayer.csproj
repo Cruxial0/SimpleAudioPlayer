@@ -69,6 +69,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Audio\AudioStream.cs" />
+    <Compile Include="Audio\LoopStream.cs" />
     <Compile Include="GUI\DataSheet.cs" />
     <Compile Include="GUI\DynamicGUI.cs" />
     <Compile Include="MainWindow.xaml.cs">
