@@ -69,6 +69,9 @@
 
         <Button x:Name="ToggleLoopBtn" Grid.Column="3" Grid.Row="6" Content="Toggle Loop"
                 Width="115" Margin="10,10,0,0" Click="ToggleLoopBtn_Click"/>
+        
+        <Button x:Name="PlaylistTesting" Grid.Column="3" Grid.Row="7" Content="Playlist"
+                Margin="10,10,0,0" Click="PlaylistTesting_Click"/>
 
         <TextBlock x:Name="NowPlayingTxt" Text="Now Playing:"
                    Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2"

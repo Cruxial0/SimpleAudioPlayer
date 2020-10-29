@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Windows.Media.Playlists;
 
 namespace SimpleAudioPlayer
 {
@@ -29,6 +30,8 @@ namespace SimpleAudioPlayer
     public partial class MainWindow : Window
     {
         public static string Dir = Environment.CurrentDirectory;
+
+        public static List<FileInfo> placeholder;
 
         private float volumePercentage;
 
@@ -43,6 +46,7 @@ namespace SimpleAudioPlayer
         public MainWindow()
         {
             InitializeComponent();
+
 
             volumePercentage = (float)volumeBar.Value / 100;
         }
@@ -94,6 +98,7 @@ namespace SimpleAudioPlayer
             if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
                 SongList.ItemsSource = DS.PopulateSongList(fbd.SelectedPath);
+                placeholder = DS.PopulateSongList(fbd.SelectedPath);
             }
         }
 
@@ -151,6 +156,13 @@ namespace SimpleAudioPlayer
             {
                 dg.UnselectAllCells();
             }
+        }
+
+        private void PlaylistTesting_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistTesting PT = new PlaylistTesting();
+
+            PT.Show();
         }
     }
 

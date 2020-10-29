@@ -33,3 +33,8 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\ru\ModernWpf.resource
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\tr\ModernWpf.resources.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\zh-Hans\ModernWpf.resources.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\zh-Hant\ModernWpf.resources.dll
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\PlaylistTesting.g.cs
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer_MarkupCompile.lref
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\PlaylistTesting.baml
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\App.baml

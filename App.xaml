@@ -1,10 +1,14 @@
-﻿<wpf:Application  xmlns:wpf="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
-                  x:Class="SimpleAudioPlayer.App"
-             xmlns:ui="http://schemas.modernwpf.com/2019"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SimpleAudioPlayer"
-             StartupUri="MainWindow.xaml">
+﻿<wpf:Application  
+    xmlns:wpf="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+    x:Class="SimpleAudioPlayer.App"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SimpleAudioPlayer"
+    StartupUri="MainWindow.xaml"
+    ShutdownMode="OnMainWindowClose">
+    
     <wpf:Application.Resources>
+        
     </wpf:Application.Resources>
 </wpf:Application>
 
