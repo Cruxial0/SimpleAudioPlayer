@@ -5,6 +5,7 @@ using SimpleAudioPlayer.Audio;
 using SimpleAudioPlayer.GUI;
 using SimpleAudioPlayer.OsuDirectory;
 using SimpleAudioPlayer.Playlist;
+using SimpleAudioPlayer.SetupLogic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,6 +43,7 @@ namespace SimpleAudioPlayer
         private readonly AudioStream AS = new AudioStream();
         private readonly DynamicGUI DGUI = new DynamicGUI();
         private readonly DataSheet DS = new DataSheet();
+        private readonly FirstTime FTS = new FirstTime();
 
         private PlaylistItem selectedFile;
 
@@ -51,6 +53,7 @@ namespace SimpleAudioPlayer
         {
             InitializeComponent();
 
+            FTS.DisplayFTSWindow();
 
             volumePercentage = (float)volumeBar.Value / 100;
         }
@@ -79,21 +82,6 @@ namespace SimpleAudioPlayer
                 SongList.ItemsSource = DS.PopulateFromOsuDb(ofd.FileName);
                 placeholder = DS.PopulateFromOsuDb(ofd.FileName);
             }
-
-            //Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
-            //{
-            //    InitialDirectory = System.IO.Path.Combine(Environment.CurrentDirectory, @"jsonFiles"),
-            //    Filter = ".json files | *.json"
-            //};
-
-            //if (ofd.ShowDialog() == true)
-            //{
-            //    ManagePlaylistJson MPJ = new ManagePlaylistJson();
-
-            //    CurrentPlaylist = MPJ.ReadPlaylist(ofd.FileName);
-
-            //    SongList.ItemsSource = DS.ApplyPlaylist(CurrentPlaylist);
-            //}
         }
 
         private void SongStopBtn_Click(object sender, RoutedEventArgs e)

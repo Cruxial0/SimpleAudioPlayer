@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Release\
 SimpleAudioPlayer
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\App.xaml
 4-1710536577
 2224254377
@@ -16,5 +16,5 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\App.xaml
 212294120281
 BrowserTesting.xaml;FirstTimeSetup.xaml;MainWindow.xaml;PlaylistTesting.xaml;
 
-False
+True
 

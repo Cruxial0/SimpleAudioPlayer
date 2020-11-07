@@ -60,6 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FileManager\ConfigManager.cs" />
+    <Compile Include="SetupLogic\FirstTime.cs" />
+    <Compile Include="SetupLogic\SetupOsu.cs" />
     <Page Include="BrowserTesting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +132,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="checkmark-and-x-icon-14.jpg" />
+    <Resource Include="604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png" />
     <Content Include="SampleSongs\Abstract - I%27m Good %28ft. RoZe%29 %28Prod. Drumma Battalion%29.mp3" />
     <Content Include="SampleSongs\Abstract - Neverland %28ft. Ruth B%29 %28Prod. Blulake%29.mp3" />
   </ItemGroup>
