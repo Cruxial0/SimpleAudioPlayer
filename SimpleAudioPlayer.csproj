@@ -60,6 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="BrowserTesting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +74,10 @@
     </Compile>
     <Compile Include="Audio\AudioStream.cs" />
     <Compile Include="Audio\LoopStream.cs" />
+    <Compile Include="BrowserTesting.xaml.cs">
+      <DependentUpon>BrowserTesting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileManager\OriginManager.cs" />
     <Compile Include="GUI\DataSheet.cs" />
     <Compile Include="GUI\DynamicGUI.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -86,6 +94,7 @@
       <DependentUpon>PlaylistTesting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Playlist\ManagePlaylistJson.cs" />
+    <Compile Include="Playlist\PlaylistHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,6 +125,9 @@
     <Content Include="SampleSongs\Abstract - Neverland %28ft. Ruth B%29 %28Prod. Blulake%29.mp3" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HoLLy.osu.DatabaseReader">
+      <Version>2.1.1</Version>
+    </PackageReference>
     <PackageReference Include="ModernWpfUI">
       <Version>0.9.2</Version>
     </PackageReference>
@@ -125,9 +137,10 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
-    <PackageReference Include="TagLib.Portable">
-      <Version>1.0.4</Version>
+    <PackageReference Include="TagLibSharp">
+      <Version>2.2.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

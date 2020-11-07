@@ -3,6 +3,7 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,21 +15,65 @@ namespace SimpleAudioPlayer.Audio
     class AudioStream
     {
         private IWavePlayer wavePlayer;
-        private float localVolume;
+        private float localVolume = 1f;
         private AudioFileReader audioFile;
 
         private LoopStream LS;
 
-        public void PlaySong(string filePath)
+        public void PlaySong(PlaylistItem fileInfo, string Origin)
+        {
+            switch (Origin)
+            {
+                case "file":
+                    PlayMusicFile(fileInfo);
+                    break;
+
+                case "web":
+                    PlayYouTube(fileInfo);
+                    break;
+
+                default:
+                    MessageBox.Show($"'{Origin} is not a valid file origin! Playback stopped.'", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+        }
+
+        private void PlayMusicFile(PlaylistItem fileInfo)
         {
             if (wavePlayer == null)
             {
                 wavePlayer = new WaveOutEvent();
-                audioFile = new AudioFileReader(filePath);
+                audioFile = new AudioFileReader(fileInfo.filePath);
+
+                audioFile.Volume = localVolume;
 
                 LS = new LoopStream(audioFile);
 
+                wavePlayer.Init(LS);
+                wavePlayer.PlaybackStopped += OnPlaybackStopped;
+                wavePlayer.Play();
+            }
+            else
+            {
+                wavePlayer.Stop();
+                wavePlayer.Dispose();
+                wavePlayer = null;
+            }
+        }
+
+        private void PlayYouTube(PlaylistItem fileInfo)
+        {
+            if (wavePlayer == null)
+            {
+                wavePlayer = new WaveOutEvent();
+                var mf = new MediaFoundationReader(fileInfo.filePath);
+
+                var memory = new MemoryStream();
+
                 audioFile.Volume = localVolume;
+
+                LS = new LoopStream(mf);
+
                 wavePlayer.Init(LS);
                 wavePlayer.PlaybackStopped += OnPlaybackStopped;
                 wavePlayer.Play();
@@ -44,7 +89,7 @@ namespace SimpleAudioPlayer.Audio
         public void ChangeVolume(float volume)
         {
             localVolume = volume;
-            if(audioFile != null) audioFile.Volume = localVolume;
+            if(wavePlayer != null) wavePlayer.Volume = localVolume;
         }
 
         public void StopSong()
@@ -86,7 +131,7 @@ namespace SimpleAudioPlayer.Audio
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-            if(wavePlayer != null) wavePlayer.Dispose();
+            if(wavePlayer != null) wavePlayer?.Dispose();
 
             wavePlayer = null;
             audioFile?.Dispose();

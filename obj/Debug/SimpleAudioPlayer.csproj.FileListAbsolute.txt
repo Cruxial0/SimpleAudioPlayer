@@ -14,7 +14,6 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.exe
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.pdb
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\NAudio.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.csproj.CopyComplete
-C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\TagLib.Portable.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer_Content.g.cs
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\ModernWpf.Controls.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\ModernWpf.dll
@@ -38,3 +37,10 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer_Mar
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\PlaylistTesting.baml
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\App.baml
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\BrowserTesting.g.cs
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\BrowserTesting.baml
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\osu-database-reader.dll
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\osu.Shared.dll
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\osu.Shared.pdb
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\TagLibSharp.dll
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\TagLibSharp.pdb

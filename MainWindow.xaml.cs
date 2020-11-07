@@ -3,6 +3,7 @@ using NAudio.Gui;
 using NAudio.Wave;
 using SimpleAudioPlayer.Audio;
 using SimpleAudioPlayer.GUI;
+using SimpleAudioPlayer.Playlist;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,9 @@ namespace SimpleAudioPlayer
     {
         public static string Dir = Environment.CurrentDirectory;
 
-        public static List<FileInfo> placeholder;
+        public static Dictionary<FileInfo, string> CurrentPlaylist = new Dictionary<FileInfo, string>();
+
+        public static List<PlaylistItem> placeholder;
 
         private float volumePercentage;
 
@@ -39,7 +42,7 @@ namespace SimpleAudioPlayer
         private readonly DynamicGUI DGUI = new DynamicGUI();
         private readonly DataSheet DS = new DataSheet();
 
-        private FileInfo selectedFile;
+        private PlaylistItem selectedFile;
 
         private PlaybackState playbackState;
 
@@ -64,15 +67,30 @@ namespace SimpleAudioPlayer
         {
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
             {
-                InitialDirectory = Dir,
-                Filter = ".mp3 files | *.mp3"
+                InitialDirectory = @"C:\Users\Benjamin\AppData\Local\osu!",
+                Filter = "osu! Database File| osu!.db"
             };
 
-            if (ofd.ShowDialog() == true)
+            if(ofd.ShowDialog() == true)
             {
-                AS.PlaySong(ofd.FileName);
-                DGUI.NowPlaying(ofd.FileName, NowPlayingTxt);
+                SongList.ItemsSource = DS.PopulateFromOsuDb(ofd.FileName);
+                placeholder = DS.PopulateFromOsuDb(ofd.FileName);
             }
+
+            //Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
+            //{
+            //    InitialDirectory = System.IO.Path.Combine(Environment.CurrentDirectory, @"jsonFiles"),
+            //    Filter = ".json files | *.json"
+            //};
+
+            //if (ofd.ShowDialog() == true)
+            //{
+            //    ManagePlaylistJson MPJ = new ManagePlaylistJson();
+
+            //    CurrentPlaylist = MPJ.ReadPlaylist(ofd.FileName);
+
+            //    SongList.ItemsSource = DS.ApplyPlaylist(CurrentPlaylist);
+            //}
         }
 
         private void SongStopBtn_Click(object sender, RoutedEventArgs e)
@@ -114,7 +132,7 @@ namespace SimpleAudioPlayer
 
         private void SongList_SelectedCellsChanged(object sender, EventArgs e)
         {
-            if (selectedFile == SongList.CurrentCell.Item as FileInfo)
+            if (selectedFile == SongList.CurrentCell.Item as PlaylistItem)
             {
                 NowPlayingTxt.Text = "null";
             }
@@ -124,12 +142,12 @@ namespace SimpleAudioPlayer
 
             if (playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
             {
-                selectedFile = SongList.CurrentCell.Item as FileInfo;
+                selectedFile = SongList.CurrentCell.Item as PlaylistItem;
 
                 AS.StopSong();
                 Task.Delay(100).ContinueWith(_ =>
                 {
-                    AS.PlaySong(selectedFile.filePath);
+                    AS.PlaySong(selectedFile, "file");
                 });
 
                 DGUI.NowPlaying(selectedFile.filePath, NowPlayingTxt);
@@ -137,9 +155,9 @@ namespace SimpleAudioPlayer
 
             if (playbackState == PlaybackState.Stopped)
             {
-                selectedFile = SongList.CurrentCell.Item as FileInfo;
+                selectedFile = SongList.CurrentCell.Item as PlaylistItem;
 
-                AS.PlaySong(selectedFile.filePath);
+                AS.PlaySong(selectedFile, "file");
                 DGUI.NowPlaying(selectedFile.filePath, NowPlayingTxt);
             }
         }
@@ -164,6 +182,13 @@ namespace SimpleAudioPlayer
 
             PT.Show();
         }
+
+        private void Browse_Click(object sender, RoutedEventArgs e)
+        {
+            BrowserTesting BT = new BrowserTesting();
+
+            BT.Show();
+        }
     }
 
     public class FileInfo
@@ -172,5 +197,14 @@ namespace SimpleAudioPlayer
         public string fileName { get; set; }
         public string fileLength { get; set; }
         public string filePath { get; set; }
+    }
+
+    public class PlaylistItem
+    {
+        public int Id { get; set; }
+        public string fileName { get; set; }
+        public string fileLength { get; set; }
+        public string filePath { get; set; }
+        public string origin { get; set; }
     }
 }

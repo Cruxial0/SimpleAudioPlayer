@@ -5,24 +5,25 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace SimpleAudioPlayer.Playlist
 {
     public class ManagePlaylistJson
     {
-        public void WritePlaylist(List<FileInfo> songList, string outputPath)
+        public void WritePlaylist(List<PlaylistItem> songList, string outputPath)
         {
-            Dictionary<FileInfo, string> SongDetails = new Dictionary<FileInfo, string>();
+            Dictionary<PlaylistItem, string> SongDetails = new Dictionary<PlaylistItem, string>();
 
-            Dictionary<int, KeyValuePair<FileInfo, string>> dictToJson = new Dictionary<int, KeyValuePair<FileInfo, string>>();
+            Dictionary<int, KeyValuePair<PlaylistItem, string>> dictToJson = new Dictionary<int, KeyValuePair<PlaylistItem, string>>();
 
             foreach (var file in songList)
             {
                 SongDetails.Add(file, ".mp3");
             }
 
-            int counter = 0;
+            int counter = 1;
 
             foreach (var pair in SongDetails)
             {
@@ -51,6 +52,11 @@ namespace SimpleAudioPlayer.Playlist
             }
 
             return keyValuePairs;
+        }
+
+        internal void ApplyPlaylist(DataGrid songList, Dictionary<FileInfo, string> currentPlaylist)
+        {
+            throw new NotImplementedException();
         }
     }
 }

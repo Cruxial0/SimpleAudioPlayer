@@ -7,11 +7,11 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d" FontSize="14"
-        Title="Basically Better Spotify" Height="503" Width="auto" BorderThickness="0"
+        Title="Basically Better Spotify" Height="auto" Width="auto" BorderThickness="0"
         ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight"
         WindowStyle="ThreeDBorderWindow">
-    <Grid OverridesDefaultStyle="True" Height="458">
+    <Grid OverridesDefaultStyle="True" Height="auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
@@ -22,6 +22,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -52,10 +53,10 @@
         <Slider x:Name="volumeBar" Grid.Column="1" Grid.Row="3"
                 Minimum="0" Maximum="100"
                 Height="30" Width="auto"
-                Value="5" ValueChanged="volumeBar_ValueChanged" SmallChange="1" LargeChange="10"
+                Value="100" ValueChanged="volumeBar_ValueChanged" SmallChange="1" LargeChange="10"
                 Margin="0,10,0,0" OverridesDefaultStyle="False" Background="{x:Null}"/>
 
-        <Button x:Name="SongSelectBtn" Grid.Column="3" Grid.Row="2" Content="Select Song"
+        <Button x:Name="SongSelectBtn" Grid.Column="3" Grid.Row="2" Content="Select osu!.db"
                 Width="115" Margin="10,0,0,0" Click="SongSelectBtn_Click"/>
 
         <Button x:Name="SongStopBtn" Grid.Column="3" Grid.Row="3" Content="Stop Song"
@@ -73,8 +74,11 @@
         <Button x:Name="PlaylistTesting" Grid.Column="3" Grid.Row="7" Content="Playlist"
                 Margin="10,10,0,0" Click="PlaylistTesting_Click"/>
 
+        <Button x:Name="Browse" Grid.Column="3" Grid.Row="8" Content="Browse"
+                Margin="10,10,0,0" Click="Browse_Click"/>
+
         <TextBlock x:Name="NowPlayingTxt" Text="Now Playing:"
-                   Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2"
+                   Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2"
                    Margin="0,10,0,0" HorizontalAlignment="Left" Padding="0"/>
     </Grid>
 </Window>
