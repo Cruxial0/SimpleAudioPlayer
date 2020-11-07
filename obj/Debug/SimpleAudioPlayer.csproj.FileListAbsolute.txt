@@ -44,3 +44,5 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\osu.Shared.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\osu.Shared.pdb
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\TagLibSharp.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\TagLibSharp.pdb
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\FirstTimeSetup.g.cs
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\FirstTimeSetup.baml

@@ -64,6 +64,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FirstTimeSetup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +82,9 @@
       <DependentUpon>BrowserTesting.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileManager\OriginManager.cs" />
+    <Compile Include="FirstTimeSetup.xaml.cs">
+      <DependentUpon>FirstTimeSetup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\DataSheet.cs" />
     <Compile Include="GUI\DynamicGUI.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -90,6 +97,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OsuDirectory\OsuFolder.cs" />
     <Compile Include="PlaylistTesting.xaml.cs">
       <DependentUpon>PlaylistTesting.xaml</DependentUpon>
     </Compile>

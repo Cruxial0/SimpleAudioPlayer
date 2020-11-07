@@ -3,6 +3,7 @@ using NAudio.Gui;
 using NAudio.Wave;
 using SimpleAudioPlayer.Audio;
 using SimpleAudioPlayer.GUI;
+using SimpleAudioPlayer.OsuDirectory;
 using SimpleAudioPlayer.Playlist;
 using System;
 using System.Collections.Generic;
@@ -65,9 +66,11 @@ namespace SimpleAudioPlayer
 
         private void SongSelectBtn_Click(object sender, RoutedEventArgs e)
         {
+            OsuFolder OF = new OsuFolder();
+
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
             {
-                InitialDirectory = @"C:\Users\Benjamin\AppData\Local\osu!",
+                InitialDirectory = OF.FindOsuFolder(),
                 Filter = "osu! Database File| osu!.db"
             };
 
