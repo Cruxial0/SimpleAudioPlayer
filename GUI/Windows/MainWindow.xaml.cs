@@ -3,6 +3,7 @@ using NAudio.Gui;
 using NAudio.Wave;
 using SimpleAudioPlayer.Audio;
 using SimpleAudioPlayer.FileManager;
+using SimpleAudioPlayer.FileManager.Playlist;
 using SimpleAudioPlayer.GUI;
 using SimpleAudioPlayer.OsuDirectory;
 using SimpleAudioPlayer.Playlist;
@@ -37,7 +38,7 @@ namespace SimpleAudioPlayer
 
         private readonly Config Config = new Config();
 
-        public static List<PlaylistItem> placeholder;
+        public static List<PlaylistItem> CurrentPlaylist;
 
         private float volumePercentage;
 
@@ -75,7 +76,7 @@ namespace SimpleAudioPlayer
             Config.InitializeConfig();
 
             SongList.ItemsSource = DS.PopulateFromPlaylist(Config.OsuPlaylist);
-            placeholder = DS.PopulateFromPlaylist(Config.OsuPlaylist);
+            CurrentPlaylist = DS.PopulateFromPlaylist(Config.OsuPlaylist);
 
             searchBarTxt.IsEnabled = true;
         }
@@ -157,9 +158,9 @@ namespace SimpleAudioPlayer
 
         private void PlaylistTesting_Click(object sender, RoutedEventArgs e)
         {
-            PlaylistTesting PT = new PlaylistTesting();
+            PlaylistManager PM = new PlaylistManager();
 
-            PT.Show();
+            PM.Show();
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
@@ -177,26 +178,9 @@ namespace SimpleAudioPlayer
 
         private void searchBarTxt_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var filtered = placeholder.Where(song => song.fileName.StartsWith(searchBarTxt.Text));
+            var filtered = CurrentPlaylist.Where(song => song.fileName.StartsWith(searchBarTxt.Text));
 
             SongList.ItemsSource = filtered;
         }
-    }
-
-    public class FileInfo
-    {
-        public int Id { get; set; }
-        public string fileName { get; set; }
-        public string fileLength { get; set; }
-        public string filePath { get; set; }
-    }
-
-    public class PlaylistItem
-    {
-        public int Id { get; set; }
-        public string fileName { get; set; }
-        public string fileLength { get; set; }
-        public string filePath { get; set; }
-        public string origin { get; set; }
     }
 }

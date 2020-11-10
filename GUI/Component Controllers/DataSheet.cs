@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using Newtonsoft.Json;
 using osu_database_reader.BinaryFiles;
+using SimpleAudioPlayer.FileManager.Playlist;
 using SimpleAudioPlayer.Playlist;
 using System;
 using System.Collections.Generic;
@@ -18,27 +19,6 @@ namespace SimpleAudioPlayer.GUI
     public class DataSheet
     {
         private uint _sampleFrequency;
-
-        public List<PlaylistItem> ApplyPlaylist(Dictionary<FileInfo, string> currentPlaylist)
-        {
-            List<PlaylistItem> items = new List<PlaylistItem>();
-
-            foreach(var item in currentPlaylist)
-            {
-                PlaylistItem currItem = new PlaylistItem();
-                FileInfo temp = item.Key;
-
-                currItem.Id = temp.Id;
-                currItem.fileName = temp.fileName;
-                currItem.filePath = temp.filePath;
-                currItem.fileLength = temp.fileLength;
-                currItem.origin = item.Value;
-
-                items.Add(currItem);
-            }
-
-            return items;
-        }
 
         public List<PlaylistItem> PopulateSongList(string dirPath)
         {
@@ -62,11 +42,7 @@ namespace SimpleAudioPlayer.GUI
 
                     currentFileLength = TimeSpan.FromSeconds(GetMediaDuration(file));
 
-                    int hh = currentFileLength.Hours;
-                    int mm = currentFileLength.Minutes;
-                    int ss = currentFileLength.Seconds;
-
-                    currentFile.fileLength = $"{hh}h {mm}m {ss}s";
+                    currentFile.fileLength = currentFile.setFormattedTimeSpan(currentFileLength);
 
                     currentFile.filePath = file;
                     currentFile.origin = "file";
@@ -106,11 +82,7 @@ namespace SimpleAudioPlayer.GUI
                         currentFileLength = tfile.Properties.Duration;
                         tfile.Dispose();
 
-                        int hh = currentFileLength.Hours;
-                        int mm = currentFileLength.Minutes;
-                        int ss = currentFileLength.Seconds;
-
-                        currentFile.fileLength = $"{hh}h {mm}m {ss}s";
+                        currentFile.fileLength = currentFile.setFormattedTimeSpan(currentFileLength);
                     }
                     catch(Exception e)
                     {

@@ -62,17 +62,21 @@
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
     <Compile Include="FileManager\ConfigManager.cs" />
+    <Compile Include="FileManager\Playlist\Playlist.cs" />
+    <Compile Include="GUI\Windows\PlaylistManager.xaml.cs">
+      <DependentUpon>PlaylistManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SetupLogic\FirstTime.cs" />
     <Compile Include="SetupLogic\SetupOsu.cs" />
-    <Page Include="BrowserTesting.xaml">
+    <Page Include="GUI\Windows\BrowserTesting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FirstTimeSetup.xaml">
+    <Page Include="GUI\Windows\FirstTimeSetup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="GUI\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -82,29 +86,26 @@
     </Compile>
     <Compile Include="Audio\AudioStream.cs" />
     <Compile Include="Audio\LoopStream.cs" />
-    <Compile Include="BrowserTesting.xaml.cs">
+    <Compile Include="GUI\Windows\BrowserTesting.xaml.cs">
       <DependentUpon>BrowserTesting.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileManager\OriginManager.cs" />
-    <Compile Include="FirstTimeSetup.xaml.cs">
+    <Compile Include="GUI\Windows\FirstTimeSetup.xaml.cs">
       <DependentUpon>FirstTimeSetup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\DataSheet.cs" />
-    <Compile Include="GUI\DynamicGUI.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="GUI\ComponentControllers\DataSheet.cs" />
+    <Compile Include="GUI\ComponentControllers\DynamicGUI.cs" />
+    <Compile Include="GUI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PlaylistTesting.xaml">
+    <Page Include="GUI\Windows\PlaylistManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OsuDirectory\OsuFolder.cs" />
-    <Compile Include="PlaylistTesting.xaml.cs">
-      <DependentUpon>PlaylistTesting.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FileManager\Playlist\ManagePlaylistJson.cs" />
     <Compile Include="FileManager\Playlist\PlaylistHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -133,7 +134,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="checkmark-and-x-icon-14.jpg" />
     <Resource Include="604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png" />
     <Content Include="SampleSongs\Abstract - I%27m Good %28ft. RoZe%29 %28Prod. Drumma Battalion%29.mp3" />
     <Content Include="SampleSongs\Abstract - Neverland %28ft. Ruth B%29 %28Prod. Blulake%29.mp3" />

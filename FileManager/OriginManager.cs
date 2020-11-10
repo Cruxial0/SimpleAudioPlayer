@@ -1,4 +1,5 @@
-﻿using SimpleAudioPlayer.Playlist;
+﻿using SimpleAudioPlayer.FileManager.Playlist;
+using SimpleAudioPlayer.Playlist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,13 @@ namespace SimpleAudioPlayer.FileManager
 {
     public class OriginManager
     {
-        public void DetermineOrigin(KeyValuePair<int, KeyValuePair<FileInfo, string>> songDetails)
+        public void DetermineOrigin(KeyValuePair<int, KeyValuePair<PlaylistItem, string>> songDetails)
         {
             PlaylistHelper PH = new PlaylistHelper();
 
             var basePair = PH.GetBasePair(songDetails);
 
-            FileInfo fileInfo = PH.GetFileInfo(songDetails);
+            PlaylistItem fileInfo = PH.GetFileInfo(songDetails);
             var id = fileInfo.Id;
             var origin = basePair.Value;
 

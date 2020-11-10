@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleAudioPlayer.FileManager.Playlist;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,44 +15,27 @@ namespace SimpleAudioPlayer.Playlist
     {
         public void WritePlaylist(List<PlaylistItem> songList, string outputPath)
         {
-            Dictionary<PlaylistItem, string> SongDetails = new Dictionary<PlaylistItem, string>();
-
-            Dictionary<int, KeyValuePair<PlaylistItem, string>> dictToJson = new Dictionary<int, KeyValuePair<PlaylistItem, string>>();
-
-            foreach (var file in songList)
-            {
-                SongDetails.Add(file, ".mp3");
-            }
-
-            int counter = 1;
-
-            foreach (var pair in SongDetails)
-            {
-                dictToJson.Add(counter, pair);
-                counter++;
-            }
-
-            string json = JsonConvert.SerializeObject(dictToJson, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(songList, Formatting.Indented);
 
             File.WriteAllText(outputPath, json);
         }
 
-        public Dictionary<FileInfo, string> ReadPlaylist(string inputPath)
-        {
-            string json = File.ReadAllText(inputPath);
+        //public Dictionary<FileInfo, string> ReadPlaylist(string inputPath)
+        //{
+        //    string json = File.ReadAllText(inputPath);
 
-            Dictionary<int, KeyValuePair<FileInfo, string>> songDetails = JsonConvert.DeserializeObject<Dictionary<int, KeyValuePair<FileInfo, string>>>(json);
+        //    Dictionary<int, KeyValuePair<FileInfo, string>> songDetails = JsonConvert.DeserializeObject<Dictionary<int, KeyValuePair<FileInfo, string>>>(json);
 
-            Dictionary<FileInfo, string> keyValuePairs = new Dictionary<FileInfo, string>();
+        //    Dictionary<FileInfo, string> keyValuePairs = new Dictionary<FileInfo, string>();
 
-            foreach (var pair in songDetails)
-            {
-                var value = pair.Value;
+        //    foreach (var pair in songDetails)
+        //    {
+        //        var value = pair.Value;
 
-                keyValuePairs.Add(value.Key, value.Value);
-            }
+        //        keyValuePairs.Add(value.Key, value.Value);
+        //    }
 
-            return keyValuePairs;
-        }
+        //    return keyValuePairs;
+        //}
     }
 }

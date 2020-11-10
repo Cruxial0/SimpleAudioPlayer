@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleAudioPlayer.FileManager.Playlist;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +9,18 @@ namespace SimpleAudioPlayer.Playlist
 {
     public class PlaylistHelper
     {
-
-
-        public KeyValuePair<FileInfo, string> GetBasePair(KeyValuePair<int, KeyValuePair<FileInfo, string>> songDetails)
+        public KeyValuePair<PlaylistItem, string> GetBasePair(KeyValuePair<int, KeyValuePair<PlaylistItem, string>> songDetails)
         {
             var basePair = songDetails.Value;
 
             return basePair;
         }
 
-        public FileInfo GetFileInfo(KeyValuePair<int, KeyValuePair<FileInfo, string>> songDetails)
+        public PlaylistItem GetFileInfo(KeyValuePair<int, KeyValuePair<PlaylistItem, string>> songDetails)
         {
             var temp = songDetails.Value;
 
-            FileInfo fileInfo = temp.Key;
+            PlaylistItem fileInfo = temp.Key;
 
             return fileInfo;
         }
