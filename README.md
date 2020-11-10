@@ -1,5 +1,6 @@
 # SimpleAudioPlayer
- Simple solution for playing mp3 files using the NAudio library.
+ A work-in-progress mutli-purpose Audio Player using NAudio.NET.
+ Support local mp3 files and reading of the 'osu!.db' database file.
 
 All sample songs are copyright free, on the behalf of [Abstract.](https://www.youtube.com/user/abstracttherapper)
 
