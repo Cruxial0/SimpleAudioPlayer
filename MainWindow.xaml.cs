@@ -2,6 +2,7 @@
 using NAudio.Gui;
 using NAudio.Wave;
 using SimpleAudioPlayer.Audio;
+using SimpleAudioPlayer.FileManager;
 using SimpleAudioPlayer.GUI;
 using SimpleAudioPlayer.OsuDirectory;
 using SimpleAudioPlayer.Playlist;
@@ -34,7 +35,7 @@ namespace SimpleAudioPlayer
     {
         public static string Dir = Environment.CurrentDirectory;
 
-        public static Dictionary<FileInfo, string> CurrentPlaylist = new Dictionary<FileInfo, string>();
+        private readonly Config Config = new Config();
 
         public static List<PlaylistItem> placeholder;
 
@@ -55,6 +56,8 @@ namespace SimpleAudioPlayer
 
             FTS.DisplayFTSWindow();
 
+            this.Closed += MainWindow_Closed;
+
             volumePercentage = (float)volumeBar.Value / 100;
         }
 
@@ -69,19 +72,12 @@ namespace SimpleAudioPlayer
 
         private void SongSelectBtn_Click(object sender, RoutedEventArgs e)
         {
-            OsuFolder OF = new OsuFolder();
+            Config.InitializeConfig();
 
-            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
-            {
-                InitialDirectory = OF.FindOsuFolder(),
-                Filter = "osu! Database File| osu!.db"
-            };
+            SongList.ItemsSource = DS.PopulateFromPlaylist(Config.OsuPlaylist);
+            placeholder = DS.PopulateFromPlaylist(Config.OsuPlaylist);
 
-            if(ofd.ShowDialog() == true)
-            {
-                SongList.ItemsSource = DS.PopulateFromOsuDb(ofd.FileName);
-                placeholder = DS.PopulateFromOsuDb(ofd.FileName);
-            }
+            searchBarTxt.IsEnabled = true;
         }
 
         private void SongStopBtn_Click(object sender, RoutedEventArgs e)
@@ -96,19 +92,11 @@ namespace SimpleAudioPlayer
 
         private void SelectDirectoryBtn_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog
-            {
-                ShowNewFolderButton = true,
-                SelectedPath = Dir,
-            };
+            Config.InitializeConfig();
 
-            DialogResult result = fbd.ShowDialog();
+            SetupOsu SO = new SetupOsu();
 
-            if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-            {
-                SongList.ItemsSource = DS.PopulateSongList(fbd.SelectedPath);
-                placeholder = DS.PopulateSongList(fbd.SelectedPath);
-            }
+            SO.WriteOsuDB(Config.OsuPath);
         }
 
         private void SongList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -179,6 +167,19 @@ namespace SimpleAudioPlayer
             BrowserTesting BT = new BrowserTesting();
 
             BT.Show();
+        }
+
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void searchBarTxt_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var filtered = placeholder.Where(song => song.fileName.StartsWith(searchBarTxt.Text));
+
+            SongList.ItemsSource = filtered;
         }
     }
 

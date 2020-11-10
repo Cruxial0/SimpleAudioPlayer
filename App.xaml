@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:SimpleAudioPlayer"
     StartupUri="MainWindow.xaml"
-    ShutdownMode="OnLastWindowClose">
+    ShutdownMode="OnMainWindowClose">
     
     <wpf:Application.Resources>
         

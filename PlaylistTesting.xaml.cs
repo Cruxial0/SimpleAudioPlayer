@@ -22,7 +22,7 @@ namespace SimpleAudioPlayer
     /// </summary>
     public partial class PlaylistTesting : Window
     {
-        string fileName = "test.json";
+        string fileName = "test.pll";
         string jsonPath;
 
         private ManagePlaylistJson MPJ;

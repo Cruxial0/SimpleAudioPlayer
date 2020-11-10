@@ -48,13 +48,13 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="BtnWrite" Content="Write"
+            <Button x:Name="BtnWrite" Content="Load Playlists"
                     Height="30" Width="100"
                     Grid.Column="0" Grid.Row="0"
                     Margin="0,10,0,0"
                     Click="BtnWrite_Click"/>
 
-            <Button x:Name="BtnRead" Content="Read"
+            <ToggleButton x:Name="BtnRead" Content="Create Playlist"
                     Height="30" Width="100"
                     Grid.Column="1" Grid.Row="0"
                     Margin="10,10,0,0"

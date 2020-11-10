@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using Newtonsoft.Json;
 using osu_database_reader.BinaryFiles;
 using SimpleAudioPlayer.Playlist;
 using System;
@@ -125,7 +126,8 @@ namespace SimpleAudioPlayer.GUI
                     Regex regex = new Regex(@"\s");
                     string[] bits = regex.Split(folderName);
 
-                    bits[0] = null;
+                    bits[0] = "0_0_0";
+                    bits = bits.Where(val => val != "0_0_0").ToArray();
 
                     folderName = String.Join(" ", bits);
 
@@ -133,13 +135,22 @@ namespace SimpleAudioPlayer.GUI
                     currentFileName = item.FolderName;
 
                     currentFile.filePath = file;
-                    currentFile.origin = "file";
+                    currentFile.origin = "osu!";
 
                     Songs.Add(currentFile);
                 }
             }
 
             return Songs;
+        }
+
+        public List<PlaylistItem> PopulateFromPlaylist(string filePath)
+        {
+            string json = System.IO.File.ReadAllText(filePath);
+
+            List<PlaylistItem> playlist = JsonConvert.DeserializeObject<List<PlaylistItem>>(json);
+
+            return playlist;
         }
 
         double GetMediaDuration(string MediaFilename)

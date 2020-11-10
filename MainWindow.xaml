@@ -56,17 +56,19 @@
                 Value="100" ValueChanged="volumeBar_ValueChanged" SmallChange="1" LargeChange="10"
                 Margin="0,10,0,0" OverridesDefaultStyle="False" Background="{x:Null}"/>
 
+        <TextBox x:Name="searchBarTxt" KeyUp="searchBarTxt_KeyUp" Grid.Column="1" Grid.Row="4" Margin="25,5,25,5" IsEnabled="False"/>
+
         <Button x:Name="SongSelectBtn" Grid.Column="3" Grid.Row="2" Content="Select osu!.db"
                 Width="115" Margin="10,0,0,0" Click="SongSelectBtn_Click"/>
 
-        <Button x:Name="SongStopBtn" Grid.Column="3" Grid.Row="3" Content="Stop Song"
-                Width="115" Margin="10,10,0,0" Click="SongStopBtn_Click"/>
+        <Button x:Name="SongStopBtn" Grid.Column="3" Grid.Row="3" Content="Refresh osu!.db"
+                Width="115" Margin="10,10,0,0" Click="SelectDirectoryBtn_Click"/>
 
         <Button x:Name="SongPauseBtn" Grid.Column="3" Grid.Row="4" Content="Toggle Pause"
                 Width="115" Margin="10,10,0,0" Click="SongPauseBtn_Click"/>
 
-        <Button x:Name="SelectDirectoryBtn" Grid.Column="3" Grid.Row="5" Content="Select Directory"
-                Width="115" Margin="10,10,0,0" Click="SelectDirectoryBtn_Click"/>
+        <Button x:Name="SelectDirectoryBtn" Grid.Column="3" Grid.Row="5" Content="Stop Song"
+                Width="115" Margin="10,10,0,0" Click="SongStopBtn_Click"/>
 
         <Button x:Name="ToggleLoopBtn" Grid.Column="3" Grid.Row="6" Content="Toggle Loop"
                 Width="115" Margin="10,10,0,0" Click="ToggleLoopBtn_Click"/>

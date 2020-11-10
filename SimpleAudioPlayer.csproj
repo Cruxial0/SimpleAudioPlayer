@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config.cs" />
     <Compile Include="FileManager\ConfigManager.cs" />
     <Compile Include="SetupLogic\FirstTime.cs" />
     <Compile Include="SetupLogic\SetupOsu.cs" />
@@ -104,8 +105,8 @@
     <Compile Include="PlaylistTesting.xaml.cs">
       <DependentUpon>PlaylistTesting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Playlist\ManagePlaylistJson.cs" />
-    <Compile Include="Playlist\PlaylistHelper.cs" />
+    <Compile Include="FileManager\Playlist\ManagePlaylistJson.cs" />
+    <Compile Include="FileManager\Playlist\PlaylistHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

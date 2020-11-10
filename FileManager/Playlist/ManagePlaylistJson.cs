@@ -53,10 +53,5 @@ namespace SimpleAudioPlayer.Playlist
 
             return keyValuePairs;
         }
-
-        internal void ApplyPlaylist(DataGrid songList, Dictionary<FileInfo, string> currentPlaylist)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
