@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimpleAudioPlayer.FileManager.Playlist
 {
-    public class Playlist
+    public class PlaylistObject
     {
         public string PlaylistName { get; set; }
-        public List<PlaylistItem> Songs { get; set; }
         public string sepDir { get; set; }
+        public List<PlaylistItem> Songs { get; set; }
     }
 
     public class PlaylistItem

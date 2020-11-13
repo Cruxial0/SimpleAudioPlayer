@@ -13,9 +13,9 @@ namespace SimpleAudioPlayer.Playlist
 {
     public class ManagePlaylistJson
     {
-        public void WritePlaylist(List<PlaylistItem> songList, string outputPath)
+        public void WritePlaylist(PlaylistObject playlist, string outputPath)
         {
-            string json = JsonConvert.SerializeObject(songList, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(playlist, Formatting.Indented);
 
             File.WriteAllText(outputPath, json);
         }

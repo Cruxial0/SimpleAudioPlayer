@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
+using SimpleAudioPlayer.FileManager.Playlist;
 using SimpleAudioPlayer.GUI;
 using SimpleAudioPlayer.Playlist;
 using System;
@@ -27,14 +29,26 @@ namespace SimpleAudioPlayer
             InitializeComponent();
         }
 
+        private PlaylistItem selectedFile;
+
         private void Playlist_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            selectedFile = Playlist.CurrentCell.Item as PlaylistItem;
 
+            if (selectedFile == null) return;
+
+            songNameTxt.Text = selectedFile.fileName;
+            SongIdTxt.Text = selectedFile.Id.ToString();
+            SongPathTxt.Text = selectedFile.filePath;
         }
 
         private void PlaylistSelectBtn_Click(object sender, RoutedEventArgs e)
         {
-            DataSheet DS = new DataSheet();
+            //Open new window
+            //Catch all .pll files and display them
+            //Return Playlist
+
+            PlaylistConverter PC = new PlaylistConverter();
 
             OpenFileDialog ofd = new OpenFileDialog
             {
@@ -44,16 +58,54 @@ namespace SimpleAudioPlayer
 
             if(ofd.ShowDialog() == true)
             {
-                MainWindow.CurrentPlaylist = DS.PopulateFromPlaylist(ofd.FileName);
-                Playlist.ItemsSource = DS.PopulateFromPlaylist(ofd.FileName);
+                MainWindow.CurrentPlaylist = PC.GetPllFromFile(ofd.FileName);
+                Playlist.ItemsSource = PC.GetPllFromFile(ofd.FileName).Songs;
+
+                SongFileRightBtn.Text = MainWindow.CurrentPlaylist.PlaylistName;
             }
         }
 
         private void PlaylistCreateBtn_Click(object sender, RoutedEventArgs e)
         {
-            ManagePlaylistJson MPJ = new ManagePlaylistJson();
+            //ManagePlaylistJson MPJ = new ManagePlaylistJson();
 
-            MPJ.WritePlaylist(MainWindow.CurrentPlaylist, Path.Combine(Environment.CurrentDirectory, "jsonFiles", "playlist1.json"));
+            //MPJ.WritePlaylist(MainWindow.CurrentPlaylist, Path.Combine(Environment.CurrentDirectory, "jsonFiles", "playlist1.json"));
+
+            PlaylistObject p = new PlaylistObject();
+
+            p.PlaylistName = "playlist";
+            p.sepDir = null;
+            p.Songs = MainWindow.CurrentPlaylist.Songs;
+
+            WritePlaylist(p, Path.Combine(Environment.CurrentDirectory, "jsonFiles", "playlist1.pll"));
+        }
+
+        //placeholder, REMOVE!!
+        public void WritePlaylist(PlaylistObject playlist, string outputPath)
+        {
+            string json = JsonConvert.SerializeObject(playlist, Formatting.Indented);
+
+            File.WriteAllText(outputPath, json);
+        }
+
+        private void ToggleMode_Click(object sender, RoutedEventArgs e)
+        {
+            if(ToggleMode.IsChecked.Value)
+            {
+                PlaylistModifyPanel.IsEnabled = true;
+                SongModifyPanel.IsEnabled = true;
+
+                ModeLabel.Foreground = new SolidColorBrush(Colors.Green);
+                ModeLabel.Text = "Current Mode: Modify enabled.";
+            }
+            else
+            {
+                PlaylistModifyPanel.IsEnabled = false;
+                SongModifyPanel.IsEnabled = false;
+
+                ModeLabel.Foreground = new SolidColorBrush(Colors.Red);
+                ModeLabel.Text = "Current Mode: Modify disabled.";
+            }
         }
     }
 }

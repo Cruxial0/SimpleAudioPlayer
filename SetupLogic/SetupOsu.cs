@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SimpleAudioPlayer.FileManager;
+using SimpleAudioPlayer.FileManager.Playlist;
 using SimpleAudioPlayer.GUI;
 using SimpleAudioPlayer.OsuDirectory;
 using System;
@@ -17,15 +18,25 @@ namespace SimpleAudioPlayer.SetupLogic
 
         private DataSheet DS = new DataSheet();
 
-        public void WriteOsuDB(string osuDBFile)
+        public async void WriteOsuDB(string osuDBFile)
         {
             CheckIfDirectoryExists();
 
-            var osuSongList = DS.PopulateFromOsuDb(osuDBFile);
+            PlaylistObject p = new PlaylistObject();
 
-            string json = JsonConvert.SerializeObject(osuSongList, Formatting.Indented);
+            p.PlaylistName = "defaultOsuPlaylist";
+            p.sepDir = null;
+            p.Songs = await DS.PopulateFromOsuDb(osuDBFile);
 
-            File.WriteAllText(Path.Combine(osuWritePath, @"osuSongList.json"), json);
+
+            string json = JsonConvert.SerializeObject(p, Formatting.Indented);
+            
+            File.WriteAllText(Path.Combine(osuWritePath, @"defaultOsuPlaylist.json"), json);
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            //p = null;
         }
 
         private void CheckIfDirectoryExists()

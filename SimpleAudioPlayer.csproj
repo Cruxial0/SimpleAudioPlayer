@@ -62,7 +62,8 @@
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
     <Compile Include="FileManager\ConfigManager.cs" />
-    <Compile Include="FileManager\Playlist\Playlist.cs" />
+    <Compile Include="FileManager\Playlist\PlaylistConverter.cs" />
+    <Compile Include="FileManager\Playlist\PlaylistObject.cs" />
     <Compile Include="GUI\Windows\PlaylistManager.xaml.cs">
       <DependentUpon>PlaylistManager.xaml</DependentUpon>
     </Compile>
@@ -93,8 +94,8 @@
     <Compile Include="GUI\Windows\FirstTimeSetup.xaml.cs">
       <DependentUpon>FirstTimeSetup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ComponentControllers\DataSheet.cs" />
-    <Compile Include="GUI\ComponentControllers\DynamicGUI.cs" />
+    <Compile Include="GUI\Component Controllers\DataSheet.cs" />
+    <Compile Include="GUI\Component Controllers\DynamicGUI.cs" />
     <Compile Include="GUI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png" />
+    <Resource Include="GUI\Windows\604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png" />
     <Content Include="SampleSongs\Abstract - I%27m Good %28ft. RoZe%29 %28Prod. Drumma Battalion%29.mp3" />
     <Content Include="SampleSongs\Abstract - Neverland %28ft. Ruth B%29 %28Prod. Blulake%29.mp3" />
   </ItemGroup>

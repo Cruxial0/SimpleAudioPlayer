@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SimpleAudioPlayer"
         mc:Ignorable="d" FontFamily="Segoe UI Light" FontSize="20"
         Title="FirstTimeSetup" Height="450" Width="600" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <BitmapImage x:Key="Checkmark" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Benjamin\source\repos\SimpleAudioPlayer\GUI\Windows\604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -57,11 +60,11 @@
                 <Button x:Name="localDirectoryBtn" Content="Select Directory" Grid.Column="1" Grid.Row="1" Height="30" VerticalAlignment="Bottom"
                         Width="145" HorizontalAlignment="Right" Click="Button_Click_1"/>
 
-                <Image x:Name="osuCheck" Source="604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png"
+                <Image x:Name="osuCheck" Source="{DynamicResource Checkmark}"
                        Width="auto" Height="30" Grid.Column="1" Margin="61,7,150,0"
                        Visibility="Hidden"/>
-                
-                <Image x:Name="localCheck" Source="604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png"
+
+                <Image x:Name="localCheck" Source="{DynamicResource Checkmark}"
                        Width="auto" Height="30" Grid.Column="1" Grid.Row="1" Margin="61,7,150,0"
                        Visibility="Hidden"/>
 

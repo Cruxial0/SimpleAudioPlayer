@@ -37,6 +37,9 @@ namespace SimpleAudioPlayer.Audio
                     MessageBox.Show($"'{Origin} is not a valid file origin! Playback stopped.'", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void PlayMusicFile(PlaylistItem fileInfo)
@@ -49,6 +52,8 @@ namespace SimpleAudioPlayer.Audio
                 audioFile.Volume = localVolume;
 
                 LS = new LoopStream(audioFile);
+
+                if (LS == null) return;
 
                 wavePlayer.Init(LS);
                 wavePlayer.PlaybackStopped += OnPlaybackStopped;
@@ -96,8 +101,12 @@ namespace SimpleAudioPlayer.Audio
         public void StopSong()
         {
             wavePlayer?.Stop();
-            wavePlayer?.Dispose();
-            wavePlayer = null;
+
+            if (wavePlayer != null)
+            {
+                wavePlayer?.Dispose();
+                wavePlayer = null;
+            }
         }
 
         public void TogglePauseSong()
@@ -116,27 +125,41 @@ namespace SimpleAudioPlayer.Audio
                     return;
                 }
             }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         public void ToggleLoop()
         {
-            if(LS.EnableLooping)
+            if(LS != null)
             {
-                LS.EnableLooping = false;
+                if (LS.EnableLooping)
+                {
+                    LS.EnableLooping = false;
+                }
+                if (!LS.EnableLooping)
+                {
+                    LS.EnableLooping = true;
+                }
             }
-            if(!LS.EnableLooping)
-            {
-                LS.EnableLooping = true;
-            }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-            if(wavePlayer != null) wavePlayer?.Dispose();
+            if (wavePlayer != null)
+            {
+                wavePlayer?.Dispose();
+                wavePlayer = null;
+                audioFile?.Dispose();
+                audioFile = null;
+            }
 
-            wavePlayer = null;
-            audioFile?.Dispose();
-            audioFile = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         public PlaybackState GetPlaybackState(PlaybackState playbackState)
@@ -144,6 +167,10 @@ namespace SimpleAudioPlayer.Audio
             if (wavePlayer == null) return PlaybackState.Stopped;
 
             playbackState = wavePlayer.PlaybackState;
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
             return playbackState;
         }
     }

@@ -5,10 +5,12 @@ using SimpleAudioPlayer.FileManager.Playlist;
 using SimpleAudioPlayer.Playlist;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,75 +56,74 @@ namespace SimpleAudioPlayer.GUI
             return Songs;
         }
 
-        public List<PlaylistItem> PopulateFromOsuDb(string filePath)
+        public async Task<List<PlaylistItem>> PopulateFromOsuDb(string filePath)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             OsuDb db = OsuDb.Read(filePath);
 
             List<PlaylistItem> Songs = new List<PlaylistItem>();
 
-            int currId = 1;
-
-            PlaylistItem currentFile;
-            TimeSpan currentFileLength;
-            TagLib.File tfile;
-
-            string currentFileName = "";
-
-            foreach (var item in db.Beatmaps)
+            await Task.Run(() =>
             {
-                if(item.FolderName != currentFileName)
+                PlaylistItem currentFile;
+                TimeSpan currentFileLength;
+                TagLib.File tfile;
+
+                int currId = 1;
+
+                string currentFileName = "";
+
+                foreach (var item in db.Beatmaps)
                 {
-                    currentFile = new PlaylistItem();
-
-                    var file = $@"{filePath.Replace("osu!.db", string.Empty)}Songs\{item.FolderName}\{item.AudioFileName}";
-
-                    try
+                    if (item.FolderName != currentFileName)
                     {
-                        tfile = TagLib.File.Create(file);
-                        currentFileLength = tfile.Properties.Duration;
-                        tfile.Dispose();
+                        currentFile = new PlaylistItem();
 
-                        currentFile.fileLength = currentFile.setFormattedTimeSpan(currentFileLength);
+                        var file = $@"{filePath.Replace("osu!.db", string.Empty)}Songs\{item.FolderName}\{item.AudioFileName}";
+
+                        try
+                        {
+                            tfile = TagLib.File.Create(file);
+                            currentFileLength = tfile.Properties.Duration;
+                            tfile.Dispose();
+
+                            currentFile.fileLength = currentFile.setFormattedTimeSpan(currentFileLength);
+                        }
+                        catch (Exception e)
+                        {
+                            currentFile = null;
+                            continue;
+                        }
+
+                        currentFile.Id = currId;
+                        currId++;
+
+                        var folderName = item.FolderName;
+
+                        Regex regex = new Regex(@"\s");
+                        string[] bits = regex.Split(folderName);
+
+                        bits[0] = "0_0_0";
+                        bits = bits.Where(val => val != "0_0_0").ToArray();
+
+                        folderName = String.Join(" ", bits);
+
+                        currentFile.fileName = folderName;
+                        currentFileName = item.FolderName;
+
+                        currentFile.filePath = file;
+                        currentFile.origin = "osu!";
+
+                        Songs.Add(currentFile);
                     }
-                    catch(Exception e)
-                    {
-                        currentFile = null;
-                        continue;
-                    }
-
-                    currentFile.Id = currId;
-                    currId++;
-
-                    var folderName = item.FolderName;
-
-                    Regex regex = new Regex(@"\s");
-                    string[] bits = regex.Split(folderName);
-
-                    bits[0] = "0_0_0";
-                    bits = bits.Where(val => val != "0_0_0").ToArray();
-
-                    folderName = String.Join(" ", bits);
-
-                    currentFile.fileName = folderName;
-                    currentFileName = item.FolderName;
-
-                    currentFile.filePath = file;
-                    currentFile.origin = "osu!";
-
-                    Songs.Add(currentFile);
                 }
-            }
+            });
+
+            sw.Stop();
 
             return Songs;
-        }
-
-        public List<PlaylistItem> PopulateFromPlaylist(string filePath)
-        {
-            string json = System.IO.File.ReadAllText(filePath);
-
-            List<PlaylistItem> playlist = JsonConvert.DeserializeObject<List<PlaylistItem>>(json);
-
-            return playlist;
         }
 
         double GetMediaDuration(string MediaFilename)

@@ -38,7 +38,7 @@ namespace SimpleAudioPlayer
 
         private readonly Config Config = new Config();
 
-        public static List<PlaylistItem> CurrentPlaylist;
+        public static PlaylistObject CurrentPlaylist;
 
         private float volumePercentage;
 
@@ -46,6 +46,7 @@ namespace SimpleAudioPlayer
         private readonly DynamicGUI DGUI = new DynamicGUI();
         private readonly DataSheet DS = new DataSheet();
         private readonly FirstTime FTS = new FirstTime();
+        private readonly PlaylistConverter PC = new PlaylistConverter();
 
         private PlaylistItem selectedFile;
 
@@ -75,8 +76,8 @@ namespace SimpleAudioPlayer
         {
             Config.InitializeConfig();
 
-            SongList.ItemsSource = DS.PopulateFromPlaylist(Config.OsuPlaylist);
-            CurrentPlaylist = DS.PopulateFromPlaylist(Config.OsuPlaylist);
+            SongList.ItemsSource = PC.GetPllFromFile(Config.OsuPlaylist).Songs;
+            CurrentPlaylist = PC.GetPllFromFile(Config.OsuPlaylist);
 
             searchBarTxt.IsEnabled = true;
         }
@@ -112,6 +113,8 @@ namespace SimpleAudioPlayer
 
         private void SongList_SelectedCellsChanged(object sender, EventArgs e)
         {
+            if (SongList.SelectedCells.Count > 1) return;
+
             if (selectedFile == SongList.CurrentCell.Item as PlaylistItem)
             {
                 NowPlayingTxt.Text = "null";
@@ -123,6 +126,8 @@ namespace SimpleAudioPlayer
             if (playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
             {
                 selectedFile = SongList.CurrentCell.Item as PlaylistItem;
+
+                if (selectedFile == null) return;
 
                 AS.StopSong();
                 Task.Delay(100).ContinueWith(_ =>
@@ -178,7 +183,7 @@ namespace SimpleAudioPlayer
 
         private void searchBarTxt_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var filtered = CurrentPlaylist.Where(song => song.fileName.StartsWith(searchBarTxt.Text));
+            var filtered = CurrentPlaylist.Songs.Where(song => song.fileName.StartsWith(searchBarTxt.Text));
 
             SongList.ItemsSource = filtered;
         }

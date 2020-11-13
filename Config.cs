@@ -20,7 +20,7 @@ namespace SimpleAudioPlayer
 
             OsuPath = CM.ReadDirectoryConfig().osuDirectory;
             LocalPath = CM.ReadDirectoryConfig().localDirectory;
-            OsuPlaylist = Path.Combine(ConfigManager.dirConfigPath, @"osu!\osuSongList.json");
+            OsuPlaylist = Path.Combine(ConfigManager.dirConfigPath, @"osu!\defaultOsuPlaylist.json");
         }
     }
 }

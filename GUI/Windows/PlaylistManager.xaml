@@ -38,7 +38,7 @@
                   SelectedCellsChanged="Playlist_SelectedCellsChanged"
                   SelectionMode="Single" SelectionUnit="Cell"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Height="120" Margin="0,10,0,0" Background="#7F9C9C9C">
+        <StackPanel x:Name="SongModifyPanel" Grid.Row="2" Grid.Column="1" Height="120" Margin="0,10,0,0" Background="#7F9C9C9C" IsEnabled="False">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -51,9 +51,9 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBox x:Name="songNameTxt" Margin="5,10,0,0" Width="240" Height="25"/>
-                <TextBox x:Name="SongIdTxt" Margin="5,10,0,0" Width="240" Height="25" Grid.Row="1"/>
-                <TextBox x:Name="SongPathTxt" Margin="5,10,0,0" Width="240" Height="25" Grid.Row="2"/>
+                <TextBox x:Name="songNameTxt" ToolTip="Name of currently selected song." Margin="5,10,0,0" Width="240" Height="25"/>
+                <TextBox x:Name="SongIdTxt" ToolTip="ID of currently selected song." Margin="5,10,0,0" Width="240" Height="25" Grid.Row="1"/>
+                <TextBox x:Name="SongPathTxt" ToolTip="File path of the currently selected song." Margin="5,10,0,0" Width="240" Height="25" Grid.Row="2"/>
 
                 <Button x:Name="VerifyApplyBtn" Content="Verify and Apply" Grid.Column="1" Grid.ColumnSpan="2"
                         Margin="50, 10, 5, 0"/>
@@ -66,7 +66,7 @@
             </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,0,0,0" Width="auto" Background="#7F9C9C9C">
+        <StackPanel x:Name="PlaylistManagementPanel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,0,0,0" Width="auto" Background="#7F9C9C9C" IsEnabled="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -88,15 +88,19 @@
                 <TextBox x:Name="SongFileRightBtn" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"
                          Height="25"/>
 
+                <TextBlock x:Name="ModeLabel" Text="Current Mode: Modify disabled." Margin="9,75,0,0"
+                           Grid.Row="2" Grid.ColumnSpan="2" Foreground="Red"/>
+                
                 <Button x:Name="VerifyPlaylistBtn" Content="Verify Playlist" Width="100" Height="45"
                         Margin="9,95,0,0" VerticalAlignment="Bottom" Grid.Row="2"/>
 
                 <ToggleButton x:Name="ToggleMode" Content="Toggle Modify" Width="100" Height="45"
-                        Margin="9,95,10,0" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1"/>
+                        Margin="9,95,10,0" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1"
+                              Click="ToggleMode_Click"/>
             </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,10,0,0" Width="auto" Background="#7F9C9C9C">
+        <StackPanel x:Name="PlaylistModifyPanel" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,10,0,0" Width="auto" Background="#7F9C9C9C" IsEnabled="False">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
