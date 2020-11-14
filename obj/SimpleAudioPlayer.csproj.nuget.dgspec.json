@@ -34,6 +34,10 @@
       "frameworks": {
         "net472": {
           "dependencies": {
+            "DiscordRichPresence": {
+              "target": "Package",
+              "version": "[1.0.166, )"
+            },
             "HoLLy.osu.DatabaseReader": {
               "target": "Package",
               "version": "[2.1.1, )"

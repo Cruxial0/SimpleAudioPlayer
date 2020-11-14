@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.7.2": {
+      "DiscordRichPresence/1.0.166": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/net35/DiscordRPC.dll": {}
+        },
+        "runtime": {
+          "lib/net35/DiscordRPC.dll": {}
+        }
+      },
       "HoLLy.osu.DatabaseReader/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -253,6 +265,18 @@
       }
     },
     ".NETFramework,Version=v4.7.2/win": {
+      "DiscordRichPresence/1.0.166": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/net35/DiscordRPC.dll": {}
+        },
+        "runtime": {
+          "lib/net35/DiscordRPC.dll": {}
+        }
+      },
       "HoLLy.osu.DatabaseReader/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -504,6 +528,18 @@
       }
     },
     ".NETFramework,Version=v4.7.2/win-x64": {
+      "DiscordRichPresence/1.0.166": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/net35/DiscordRPC.dll": {}
+        },
+        "runtime": {
+          "lib/net35/DiscordRPC.dll": {}
+        }
+      },
       "HoLLy.osu.DatabaseReader/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -755,6 +791,18 @@
       }
     },
     ".NETFramework,Version=v4.7.2/win-x86": {
+      "DiscordRichPresence/1.0.166": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/net35/DiscordRPC.dll": {}
+        },
+        "runtime": {
+          "lib/net35/DiscordRPC.dll": {}
+        }
+      },
       "HoLLy.osu.DatabaseReader/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -1007,6 +1055,23 @@
     }
   },
   "libraries": {
+    "DiscordRichPresence/1.0.166": {
+      "sha512": "38XnrNA8GJvIdhScskPMa0WIw0+kxd9ylTY3ImsDim9i5E5wzUxcEOr7OygicWALw/c0K+naEgmkRvNz70M6VA==",
+      "type": "package",
+      "path": "discordrichpresence/1.0.166",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "discordrichpresence.1.0.166.nupkg.sha512",
+        "discordrichpresence.nuspec",
+        "lib/net35/DiscordRPC.dll",
+        "lib/net35/DiscordRPC.pdb",
+        "lib/net35/DiscordRPC.xml",
+        "lib/netstandard2.0/DiscordRPC.dll",
+        "lib/netstandard2.0/DiscordRPC.pdb",
+        "lib/netstandard2.0/DiscordRPC.xml"
+      ]
+    },
     "HoLLy.osu.DatabaseReader/2.1.1": {
       "sha512": "raAL+EcFsIOV8ewNdVItWz+74lyJnub/NsfrQ6xRbv3QfY/IZddzP9kcI9z38qqlpWYAPlu8AsigagkGg2qmhA==",
       "type": "package",
@@ -1547,6 +1612,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
+      "DiscordRichPresence >= 1.0.166",
       "HoLLy.osu.DatabaseReader >= 2.1.1",
       "ModernWpfUI >= 0.9.2",
       "NAudio >= 1.10.0",
@@ -1587,6 +1653,10 @@
     "frameworks": {
       "net472": {
         "dependencies": {
+          "DiscordRichPresence": {
+            "target": "Package",
+            "version": "[1.0.166, )"
+          },
           "HoLLy.osu.DatabaseReader": {
             "target": "Package",
             "version": "[2.1.1, )"

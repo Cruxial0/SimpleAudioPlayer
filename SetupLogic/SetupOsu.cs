@@ -33,10 +33,8 @@ namespace SimpleAudioPlayer.SetupLogic
             
             File.WriteAllText(Path.Combine(osuWritePath, @"defaultOsuPlaylist.json"), json);
 
-            GC.Collect();
             GC.WaitForPendingFinalizers();
-
-            //p = null;
+            GC.Collect();
         }
 
         private void CheckIfDirectoryExists()

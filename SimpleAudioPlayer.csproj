@@ -68,6 +68,7 @@
     <Compile Include="GUI\Windows\PlaylistManager.xaml.cs">
       <DependentUpon>PlaylistManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RPCHelper\OriginConvert.cs" />
     <Compile Include="SetupLogic\FirstTime.cs" />
     <Compile Include="SetupLogic\SetupOsu.cs" />
     <Page Include="GUI\Windows\BrowserTesting.xaml">
@@ -142,6 +143,9 @@
     <Content Include="SampleSongs\Abstract - Neverland %28ft. Ruth B%29 %28Prod. Blulake%29.mp3" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DiscordRichPresence">
+      <Version>1.0.166</Version>
+    </PackageReference>
     <PackageReference Include="HoLLy.osu.DatabaseReader">
       <Version>2.1.1</Version>
     </PackageReference>
