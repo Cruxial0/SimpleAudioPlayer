@@ -68,8 +68,6 @@ namespace SimpleAudioPlayer.GUI
             await Task.Run(() =>
             {
                 PlaylistItem currentFile;
-                TimeSpan currentFileLength;
-                TagLib.File tfile;
 
                 int currId = 1;
 
@@ -79,44 +77,25 @@ namespace SimpleAudioPlayer.GUI
                 {
                     if (item.FolderName != currentFileName)
                     {
-                        currentFile = new PlaylistItem();
-
-                        var file = $@"{filePath.Replace("osu!.db", string.Empty)}Songs\{item.FolderName}\{item.AudioFileName}";
-
-                        try
+                        if(item.TotalTime >= 1000)
                         {
-                            tfile = TagLib.File.Create(file);
-                            currentFileLength = tfile.Properties.Duration;
-                            tfile.Dispose();
+                            currentFile = new PlaylistItem();
 
-                            currentFile.fileLength = currentFile.setFormattedTimeSpan(currentFileLength);
+                            var file = $@"{filePath.Replace("osu!.db", string.Empty)}Songs\{item.FolderName}\{item.AudioFileName}";
+
+                            currentFile.fileLength = currentFile.setFormattedTimeSpan(TimeSpan.FromMilliseconds(item.TotalTime));
+
+                            currentFile.Id = currId;
+                            currId++;
+
+                            currentFile.fileName = $"{item.Artist} - {item.Title}";
+                            currentFileName = item.FolderName;
+
+                            currentFile.filePath = file;
+                            currentFile.origin = "osu!";
+
+                            Songs.Add(currentFile);
                         }
-                        catch (Exception e)
-                        {
-                            currentFile = null;
-                            continue;
-                        }
-
-                        currentFile.Id = currId;
-                        currId++;
-
-                        var folderName = item.FolderName;
-
-                        Regex regex = new Regex(@"\s");
-                        string[] bits = regex.Split(folderName);
-
-                        bits[0] = "0_0_0";
-                        bits = bits.Where(val => val != "0_0_0").ToArray();
-
-                        folderName = String.Join(" ", bits);
-
-                        currentFile.fileName = folderName;
-                        currentFileName = item.FolderName;
-
-                        currentFile.filePath = file;
-                        currentFile.origin = "osu!";
-
-                        Songs.Add(currentFile);
                     }
                 }
             });
@@ -124,6 +103,33 @@ namespace SimpleAudioPlayer.GUI
             sw.Stop();
 
             return Songs;
+        }
+
+        public int GetLeadingNumber(string input)
+        {
+            char[] chars = input.ToCharArray();
+            int lastValid = -1;
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (Char.IsDigit(chars[i]))
+                {
+                    lastValid = i;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (lastValid >= 0)
+            {
+                return int.Parse(new string(chars, 0, lastValid + 1));
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         double GetMediaDuration(string MediaFilename)

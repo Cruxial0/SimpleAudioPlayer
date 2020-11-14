@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
+    <Compile Include="Extensions\OperatorExtensions.cs" />
     <Compile Include="FileManager\ConfigManager.cs" />
     <Compile Include="FileManager\Playlist\PlaylistConverter.cs" />
     <Compile Include="FileManager\Playlist\PlaylistObject.cs" />

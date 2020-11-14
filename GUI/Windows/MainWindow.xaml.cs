@@ -2,6 +2,7 @@
 using NAudio.Gui;
 using NAudio.Wave;
 using SimpleAudioPlayer.Audio;
+using SimpleAudioPlayer.Extensions;
 using SimpleAudioPlayer.FileManager;
 using SimpleAudioPlayer.FileManager.Playlist;
 using SimpleAudioPlayer.GUI;
@@ -183,7 +184,15 @@ namespace SimpleAudioPlayer
 
         private void searchBarTxt_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var filtered = CurrentPlaylist.Songs.Where(song => song.fileName.StartsWith(searchBarTxt.Text));
+            List<PlaylistItem> filtered = new List<PlaylistItem>();
+
+            foreach(var song in CurrentPlaylist.Songs)
+            {
+                if (song.fileName.ContainsToLower(searchBarTxt.Text, StringComparison.OrdinalIgnoreCase))
+                {
+                    filtered.Add(song);
+                }
+            }
 
             SongList.ItemsSource = filtered;
         }
