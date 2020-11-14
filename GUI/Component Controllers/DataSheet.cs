@@ -88,8 +88,10 @@ namespace SimpleAudioPlayer.GUI
                             currentFile.Id = currId;
                             currId++;
 
-                            currentFile.fileName = $"{item.Artist} - {item.Title}";
+                            currentFile.fileName = $"{item.Title}";
                             currentFileName = item.FolderName;
+
+                            currentFile.artist = item.Artist;
 
                             currentFile.filePath = file;
                             currentFile.origin = "osu!";

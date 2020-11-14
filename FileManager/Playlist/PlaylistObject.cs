@@ -16,6 +16,7 @@ namespace SimpleAudioPlayer.FileManager.Playlist
     public class PlaylistItem
     {
         public int Id { get; set; }
+        public string artist { get; set; }
         public string fileName { get; set; }
         public TimeSpan fileLength { get; set; }
         public string filePath { get; set; }

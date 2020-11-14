@@ -48,3 +48,7 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\GUI\Windows\PlaylistM
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\GUI\Windows\PlaylistManager.baml
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\DiscordRPC.dll
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\DiscordRPC.pdb
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\SimpleAudioPlayer.exe.manifest
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\SimpleAudioPlayer.application
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.exe.manifest
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.application

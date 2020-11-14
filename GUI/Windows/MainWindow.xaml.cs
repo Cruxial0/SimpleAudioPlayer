@@ -61,7 +61,6 @@ namespace SimpleAudioPlayer
         public static DiscordRpcClient client;
         public RichPresence discordPresence;
 
-        private DispatcherTimer remainTimer = new DispatcherTimer();
         public DateTime currentTimestamp = new DateTime();
         public Timestamps Timestamp = new Timestamps();
 
@@ -82,7 +81,7 @@ namespace SimpleAudioPlayer
             
             discordPresence.Assets = new Assets()
             {
-                LargeImageKey = "logo",
+                LargeImageKey = "logo2",
                 LargeImageText = "Idle",
                 SmallImageKey = "",
                 SmallImageText = "File Origin: null",
@@ -122,8 +121,8 @@ namespace SimpleAudioPlayer
                 State = "Not listening to anything",
                 Assets = new Assets()
                 {
-                    LargeImageKey = "image_large",
-                    LargeImageText = "Lachee's Discord IPC Library",
+                    LargeImageKey = "logo2",
+                    LargeImageText = "Idle",
                     SmallImageKey = "image_small"
                 }
             });
@@ -187,6 +186,10 @@ namespace SimpleAudioPlayer
             {
                 e.Column.Header = "Origin";
             }
+            if (propertyDescriptor.DisplayName == "artist")
+            {
+                e.Column.Header = "Artist";
+            }
         }
 
         private void SongList_SelectedCellsChanged(object sender, EventArgs e)
@@ -195,7 +198,7 @@ namespace SimpleAudioPlayer
 
             if (selectedFile == SongList.CurrentCell.Item as PlaylistItem)
             {
-                NowPlayingTxt.Text = "null";
+                return;
             }
             if (SongList.CurrentCell.Item == null) return;
 
@@ -213,10 +216,10 @@ namespace SimpleAudioPlayer
                     AS.PlaySong(selectedFile, "file");
                 });
 
-                DGUI.NowPlaying(selectedFile.fileName, NowPlayingTxt);
+                DGUI.NowPlaying($"{selectedFile.artist} - {selectedFile.fileName}", NowPlayingTxt);
 
                 discordPresence.Details = "In Song List";
-                discordPresence.State = $"Playing: {selectedFile.fileName}";
+                discordPresence.State = $"Playing: {selectedFile.artist} - {selectedFile.fileName}";
 
                 discordPresence.Assets.LargeImageText = "Listening.";
 
@@ -273,6 +276,9 @@ namespace SimpleAudioPlayer
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
+            client.Deinitialize();
+            client.Dispose();
+
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -286,7 +292,19 @@ namespace SimpleAudioPlayer
                 {
                     filtered.Add(song);
                 }
+
+                if (song.artist.ContainsToLower(searchBarTxt.Text, StringComparison.OrdinalIgnoreCase))
+                {
+                    filtered.Add(song);
+                }
+
+                if (song.Id.ToString().ContainsToLower(searchBarTxt.Text, StringComparison.OrdinalIgnoreCase))
+                {
+                    filtered.Add(song);
+                }
             }
+
+
 
             SongList.ItemsSource = filtered;
         }
