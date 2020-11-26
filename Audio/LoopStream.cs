@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using DiscordRPC;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,15 @@ namespace SimpleAudioPlayer.Audio
     {
         WaveStream sourceStream;
 
-        public LoopStream(WaveStream sourceStream)
+        private DateTime currentTimestamp = new DateTime();
+        private Timestamps Timestamp = new Timestamps();
+
+        private readonly RPCHelper.RPCHelper RPC = new RPCHelper.RPCHelper();
+
+        public LoopStream(WaveStream sourceStream, bool enableLooping)
         {
             this.sourceStream = sourceStream;
-            this.EnableLooping = true;
+            EnableLooping = enableLooping;
         }
 
         public bool EnableLooping { get; set; }
@@ -39,7 +45,7 @@ namespace SimpleAudioPlayer.Audio
         {
             int totalBytesRead = 0;
 
-            while (totalBytesRead < count)
+            while (totalBytesRead < count && EnableLooping)
             {
                 int bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
                 if (bytesRead == 0)
@@ -51,6 +57,13 @@ namespace SimpleAudioPlayer.Audio
                     }
                     // loop
                     sourceStream.Position = 0;
+
+                    currentTimestamp = DateTime.UtcNow.AddTicks(Length);
+
+                    Timestamp.Start = DateTime.Now;
+                    Timestamp.End = currentTimestamp;
+
+                    RPC.SetTimestamp(Timestamp);
                 }
                 totalBytesRead += bytesRead;
             }

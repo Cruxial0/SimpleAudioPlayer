@@ -47,12 +47,29 @@ namespace SimpleAudioPlayer
 
         private float volumePercentage;
 
+        public delegate void onChangeSongChangedEvent();
+        public static event onChangeSongChangedEvent ChangeSongChanged;
+        public static bool ChangeSong;
+        public bool changeSong
+        {
+            get
+            {
+                return ChangeSong;
+            }
+            set
+            {
+                //changeSong = value;
+                ChangeSongChanged?.Invoke();
+            }
+        }
+
         private readonly AudioStream AS = new AudioStream();
         private readonly DynamicGUI DGUI = new DynamicGUI();
         private readonly DataSheet DS = new DataSheet();
         private readonly FirstTime FTS = new FirstTime();
         private readonly PlaylistConverter PC = new PlaylistConverter();
         private readonly OriginConvert OC = new OriginConvert();
+        private readonly RPCHelper.RPCHelper RPC = new RPCHelper.RPCHelper();
 
         private PlaylistItem selectedFile;
 
@@ -61,71 +78,19 @@ namespace SimpleAudioPlayer
         public static DiscordRpcClient client;
         public RichPresence discordPresence;
 
-        public DateTime currentTimestamp = new DateTime();
-        public Timestamps Timestamp = new Timestamps();
-
         public MainWindow()
         {
-            InitializeRPC();
-
             InitializeComponent();
+
+            RPC.Initialize();
+            RPC.StartupRPC();
 
             FTS.DisplayFTSWindow();
 
             this.Closed += MainWindow_Closed;
-
-            discordPresence = new RichPresence();
-
-            discordPresence.State = "Not listening to anything";
-            discordPresence.Details = "In song list";
-            
-            discordPresence.Assets = new Assets()
-            {
-                LargeImageKey = "logo2",
-                LargeImageText = "Idle",
-                SmallImageKey = "",
-                SmallImageText = "File Origin: null",
-            };
-
-            client.SetPresence(discordPresence);
+            ChangeSongChanged += MainWindow_ChangeSongChanged;
 
             volumePercentage = (float)volumeBar.Value / 100;
-        }
-
-        private void InitializeRPC()
-        {
-            client = new DiscordRpcClient("777219297524318280");
-
-            //Set the logger
-            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-
-            //Subscribe to events
-            client.OnReady += (sender, e) =>
-            {
-                Console.WriteLine("Received Ready from user {0}", e.User.Username);
-            };
-
-            client.OnPresenceUpdate += (sender, e) =>
-            {
-                Console.WriteLine("Received Update! {0}", e.Presence);
-            };
-
-            //Connect to the RPC
-            client.Initialize();
-
-            //Set the rich presence
-            //Call this as many times as you want and anywhere in your code.
-            client.SetPresence(new RichPresence()
-            {
-                Details = "In song list",
-                State = "Not listening to anything",
-                Assets = new Assets()
-                {
-                    LargeImageKey = "logo2",
-                    LargeImageText = "Idle",
-                    SmallImageKey = "image_small"
-                }
-            });
         }
 
         public void volumeBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -192,6 +157,7 @@ namespace SimpleAudioPlayer
             }
         }
 
+        private int currentRow = 0;
         private void SongList_SelectedCellsChanged(object sender, EventArgs e)
         {
             if (SongList.SelectedCells.Count > 1) return;
@@ -218,22 +184,13 @@ namespace SimpleAudioPlayer
 
                 DGUI.NowPlaying($"{selectedFile.artist} - {selectedFile.fileName}", NowPlayingTxt);
 
-                discordPresence.Details = "In Song List";
-                discordPresence.State = $"Playing: {selectedFile.artist} - {selectedFile.fileName}";
+                currentRow = SongList.SelectedIndex;
 
-                discordPresence.Assets.LargeImageText = "Listening.";
-
-                discordPresence.Assets.SmallImageKey = OC.OriginToAssetName(selectedFile.origin);
-                discordPresence.Assets.SmallImageText = OC.OriginToImageText(selectedFile.origin);
-
-                currentTimestamp = DateTime.UtcNow.Add(selectedFile.fileLength);
-
-                Timestamp.Start = DateTime.Now;
-                Timestamp.End = currentTimestamp;
-
-                discordPresence.WithTimestamps(Timestamp);
-
-                client.SetPresence(discordPresence);
+                #region DiscordRPC
+                RPC.EditDetails($"Playing: {selectedFile.artist} - {selectedFile.fileName}", "In Song List");
+                RPC.EditImage("Listening.", OC.OriginToImageText(selectedFile.origin));
+                RPC.EditImageKeys(null, OC.OriginToImageText(selectedFile.origin));
+                #endregion
             }
 
             if (playbackState == PlaybackState.Stopped)
@@ -242,6 +199,20 @@ namespace SimpleAudioPlayer
 
                 AS.PlaySong(selectedFile, "file");
                 DGUI.NowPlaying(selectedFile.filePath, NowPlayingTxt);
+            }
+        }
+
+        private void MainWindow_ChangeSongChanged()
+        {
+            if (!changeSong) return;
+
+            if(currentRow != -1)
+            {
+                if (currentRow < SongList.Items.Count)
+                {
+                    SongList.SelectedIndex++;
+                }
+                changeSong = false;
             }
         }
 

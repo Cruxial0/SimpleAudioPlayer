@@ -1,4 +1,5 @@
-﻿using NAudio.Gui;
+﻿using DiscordRPC;
+using NAudio.Gui;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using SimpleAudioPlayer.FileManager.Playlist;
@@ -19,7 +20,15 @@ namespace SimpleAudioPlayer.Audio
         private float localVolume = 1f;
         private AudioFileReader audioFile;
 
+        private bool enableLooping = false;
+
         private LoopStream LS;
+        private RPCHelper.RPCHelper RPC = new RPCHelper.RPCHelper();
+
+        private PlaylistItem currentItem = null;
+
+        private DateTime currentTimestamp = new DateTime();
+        private Timestamps Timestamp = new Timestamps();
 
         public void PlaySong(PlaylistItem fileInfo, string Origin)
         {
@@ -51,13 +60,27 @@ namespace SimpleAudioPlayer.Audio
 
                 audioFile.Volume = localVolume;
 
-                LS = new LoopStream(audioFile);
+                LS = new LoopStream(audioFile, enableLooping);
 
                 if (LS == null) return;
 
-                wavePlayer.Init(LS);
+                if (LS.EnableLooping) wavePlayer.Init(LS);
+                else
+                {
+                    currentTimestamp = DateTime.UtcNow.Add(fileInfo.fileLength);
+
+                    Timestamp.Start = DateTime.Now;
+                    Timestamp.End = currentTimestamp;
+
+                    RPC.SetTimestamp(Timestamp);
+
+                    wavePlayer.Init(audioFile);
+                }
+
                 wavePlayer.PlaybackStopped += OnPlaybackStopped;
                 wavePlayer.Play();
+
+                currentItem = fileInfo;
             }
             else
             {
@@ -78,11 +101,13 @@ namespace SimpleAudioPlayer.Audio
 
                 audioFile.Volume = localVolume;
 
-                LS = new LoopStream(mf);
+                LS = new LoopStream(mf, enableLooping);
 
                 wavePlayer.Init(LS);
                 wavePlayer.PlaybackStopped += OnPlaybackStopped;
                 wavePlayer.Play();
+
+                currentItem = fileInfo;
             }
             else
             {
@@ -132,16 +157,13 @@ namespace SimpleAudioPlayer.Audio
 
         public void ToggleLoop()
         {
-            if(LS != null)
+            if (enableLooping)
             {
-                if (LS.EnableLooping)
-                {
-                    LS.EnableLooping = false;
-                }
-                if (!LS.EnableLooping)
-                {
-                    LS.EnableLooping = true;
-                }
+                enableLooping = false;
+            }
+            if (!enableLooping)
+            {
+                enableLooping = true;
             }
 
             GC.Collect();
@@ -160,6 +182,11 @@ namespace SimpleAudioPlayer.Audio
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+            if(!enableLooping && currentItem != null)
+            {
+                MainWindow.ChangeSong = true;
+            }
         }
 
         public PlaybackState GetPlaybackState(PlaybackState playbackState)
@@ -167,9 +194,6 @@ namespace SimpleAudioPlayer.Audio
             if (wavePlayer == null) return PlaybackState.Stopped;
 
             playbackState = wavePlayer.PlaybackState;
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
 
             return playbackState;
         }
