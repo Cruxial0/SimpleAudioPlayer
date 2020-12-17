@@ -67,13 +67,6 @@ namespace SimpleAudioPlayer.Audio
                 if (LS.EnableLooping) wavePlayer.Init(LS);
                 else
                 {
-                    currentTimestamp = DateTime.UtcNow.Add(fileInfo.fileLength);
-
-                    Timestamp.Start = DateTime.Now;
-                    Timestamp.End = currentTimestamp;
-
-                    RPC.SetTimestamp(Timestamp);
-
                     wavePlayer.Init(audioFile);
                 }
 

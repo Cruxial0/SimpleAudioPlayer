@@ -294,14 +294,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SimpleAudioPlayer.exe" size="364032">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SimpleAudioPlayer.exe" size="361984">
       <assemblyIdentity name="SimpleAudioPlayer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2YyE+s4CRPAnILKwVj7fD3zIPMVpXRnmZx/hztAZ2Rw=</dsig:DigestValue>
+        <dsig:DigestValue>vpE9vCjnwUmYB7LYnIornHKCROrUJvMXpDodjq8eKSc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

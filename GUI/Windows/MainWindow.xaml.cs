@@ -83,7 +83,6 @@ namespace SimpleAudioPlayer
             InitializeComponent();
 
             RPC.Initialize();
-            RPC.StartupRPC();
 
             FTS.DisplayFTSWindow();
 
@@ -187,9 +186,10 @@ namespace SimpleAudioPlayer
                 currentRow = SongList.SelectedIndex;
 
                 #region DiscordRPC
-                RPC.EditDetails($"Playing: {selectedFile.artist} - {selectedFile.fileName}", "In Song List");
-                RPC.EditImage("Listening.", OC.OriginToImageText(selectedFile.origin));
-                RPC.EditImageKeys(null, OC.OriginToImageText(selectedFile.origin));
+                //RPC.EditDetails($"Playing: {selectedFile.artist} - {selectedFile.fileName}", "In Song List");
+                //RPC.EditImage("Listening.", OC.OriginToImageText(selectedFile.origin));
+                //RPC.EditImageKeys("", OC.OriginToImageText(selectedFile.origin));
+                RPC.EditRPC("In Song List", $"Playing: {selectedFile.artist} - {selectedFile.fileName}", "logo2", "Listening.", OC.OriginToAssetName(selectedFile.origin), OC.OriginToImageText(selectedFile.origin));
                 #endregion
             }
 

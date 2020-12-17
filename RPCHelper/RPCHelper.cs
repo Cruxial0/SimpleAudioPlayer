@@ -10,6 +10,8 @@ namespace SimpleAudioPlayer.RPCHelper
 {
     public class RPCHelper
     {
+        public string ClientID;
+
         public static DiscordRpcClient client;
         public RichPresence discordPresence;
 
@@ -34,79 +36,85 @@ namespace SimpleAudioPlayer.RPCHelper
             client.SetPresence(discordPresence);
         }
 
-        internal void EditDetails(string song, string projectLocation)
+        internal void EditRPC(string state, string details, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
         {
             discordPresence = new RichPresence();
 
-            discordPresence.State = song;
-            discordPresence.Details = projectLocation;
+            discordPresence.State = state;
+            discordPresence.Details = details;
+
+            discordPresence.Assets = new Assets()
+            {
+                LargeImageKey = largeImageKey,
+                LargeImageText = largeImageText,
+                SmallImageKey = smallImageKey,
+                SmallImageText = smallImageText,
+            };
 
             client.SetPresence(discordPresence);
         }
 
-        internal void EditImageKeys(string largeImageKey, string smallImageKey)
-        {
-            discordPresence = new RichPresence();
+        //internal void EditDetails(string song, string projectLocation)
+        //{
+        //    discordPresence = new RichPresence();
 
-            if (largeImageKey == null)
-            {
-                discordPresence.Assets.LargeImageKey = discordPresence.Assets.LargeImageKey;
-            }
-            else
-            {
-                discordPresence.Assets.LargeImageKey = largeImageKey;
+        //    discordPresence.State = song;
+        //    discordPresence.Details = projectLocation;
 
-            }
+        //    client.SetPresence(discordPresence);
+        //}
 
-            if (smallImageKey == null)
-            {
-                discordPresence.Assets.SmallImageKey = discordPresence.Assets.SmallImageKey;
-            }
-            else
-            {
-                discordPresence.Assets.SmallImageKey = smallImageKey;
+        //internal void EditImageKeys(string largeImageKey, string smallImageKey)
+        //{
+        //    discordPresence = new RichPresence();
 
-            }
+        //    if (largeImageKey == null)
+        //    {
+        //        discordPresence.Assets.LargeImageKey = discordPresence.Assets.LargeImageKey;
+        //    }
+        //    else
+        //    {
+        //        discordPresence.Assets.LargeImageKey = largeImageKey;
 
-            client.SetPresence(discordPresence);
-        }
+        //    }
 
-        internal void EditImage(string largeImageText, string smallImageText)
-        {
-            discordPresence = new RichPresence();
+        //    if (smallImageKey == null)
+        //    {
+        //        discordPresence.Assets.SmallImageKey = discordPresence.Assets.SmallImageKey;
+        //    }
+        //    else
+        //    {
+        //        discordPresence.Assets.SmallImageKey = smallImageKey;
 
-            discordPresence.Assets.LargeImageText = largeImageText;
-            discordPresence.Assets.SmallImageText = smallImageText;
+        //    }
 
-            client.SetPresence(discordPresence);
-        }
+        //    client.SetPresence(discordPresence);
+        //}
 
-        internal void SetTimestamp(Timestamps ts)
-        {
-            discordPresence = new RichPresence();
+        //internal void EditImage(string largeImageText, string smallImageText)
+        //{
+        //    discordPresence = new RichPresence();
 
-            discordPresence.WithTimestamps(ts);
+        //    discordPresence.Assets.LargeImageText = largeImageText;
+        //    discordPresence.Assets.SmallImageText = smallImageText;
 
-            client.SetPresence(discordPresence);
-        }
+        //    client.SetPresence(discordPresence);
+        //}
+
+        //internal void SetTimestamp(Timestamps ts)
+        //{
+        //    discordPresence = new RichPresence();
+
+        //    discordPresence.WithTimestamps(ts);
+
+        //    client.SetPresence(discordPresence);
+        //}
 
         internal void Initialize(string clientID = "777219297524318280")
         {
+            ClientID = clientID;
+
             client = new DiscordRpcClient(clientID);
-
-            //Set the logger
-            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-
-            //Subscribe to events
-            client.OnReady += (sender, e) =>
-            {
-                Console.WriteLine("Received Ready from user {0}", e.User.Username);
-            };
-
-            client.OnPresenceUpdate += (sender, e) =>
-            {
-                Console.WriteLine("Received Update! {0}", e.Presence);
-            };
 
             //Connect to the RPC
             client.Initialize();

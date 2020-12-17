@@ -57,13 +57,6 @@ namespace SimpleAudioPlayer.Audio
                     }
                     // loop
                     sourceStream.Position = 0;
-
-                    currentTimestamp = DateTime.UtcNow.AddTicks(Length);
-
-                    Timestamp.Start = DateTime.Now;
-                    Timestamp.End = currentTimestamp;
-
-                    RPC.SetTimestamp(Timestamp);
                 }
                 totalBytesRead += bytesRead;
             }
