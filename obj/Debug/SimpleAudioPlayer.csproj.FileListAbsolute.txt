@@ -52,3 +52,6 @@ C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\SimpleAudioPlayer.exe
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\bin\Debug\SimpleAudioPlayer.application
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.exe.manifest
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\SimpleAudioPlayer.application
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\GUI\Controls\SongListItem.g.cs
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\GUI\Controls\SongListItem.baml
+C:\Users\Benjamin\source\repos\SimpleAudioPlayer\obj\Debug\GeneratedInternalTypeHelper.g.cs

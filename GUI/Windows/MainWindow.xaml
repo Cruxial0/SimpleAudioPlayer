@@ -1,10 +1,11 @@
-﻿<Window x:Class="SimpleAudioPlayer.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:Controls="clr-namespace:SimpleAudioPlayer.GUI.Controls" x:Class="SimpleAudioPlayer.MainWindow"
         ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d" FontSize="14"
         Title="Basically Better Spotify" Height="auto" Width="auto" BorderThickness="0"
@@ -72,7 +73,7 @@
 
         <Button x:Name="ToggleLoopBtn" Grid.Column="3" Grid.Row="6" Content="Toggle Loop"
                 Width="115" Margin="10,10,0,0" Click="ToggleLoopBtn_Click"/>
-        
+
         <Button x:Name="PlaylistTesting" Grid.Column="3" Grid.Row="7" Content="Playlist"
                 Margin="10,10,0,0" Click="PlaylistTesting_Click"/>
 
@@ -82,5 +83,16 @@
         <TextBlock x:Name="NowPlayingTxt" Text="Now Playing:"
                    Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2"
                    Margin="0,10,0,0" HorizontalAlignment="Left" Padding="0"/>
+        <Controls:SongListItem HorizontalAlignment="Left" Height="169" Margin="-219,3,-112,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="796" RenderTransformOrigin="0.5, 0.5" Grid.ColumnSpan="6" SongTitle="Caramel Heaven" background="/SimpleAudioPlayer;component/GUI/Controls/bg.jpg" Grid.Row="3">
+            <Controls:SongListItem.Background>
+                <ImageBrush ImageSource="/SimpleAudioPlayer;component/GUI/Controls/bg.jpg" Stretch="UniformToFill"/>
+            </Controls:SongListItem.Background>
+            <Controls:SongListItem.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.45" ScaleY="0.45"></ScaleTransform>
+                </TransformGroup>
+            </Controls:SongListItem.RenderTransform>
+        </Controls:SongListItem>
+
     </Grid>
 </Window>

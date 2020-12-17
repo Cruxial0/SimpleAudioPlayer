@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Benjamin\source\repos\SimpleAudioPlayer\App.xaml
-4-330816503
+51388099140
 2224254377
-251235527457
+26890822895
 2132089119008
-GUI\Windows\BrowserTesting.xaml;GUI\Windows\FirstTimeSetup.xaml;GUI\Windows\MainWindow.xaml;GUI\Windows\PlaylistManager.xaml;
+GUI\Controls\SongListItem.xaml;GUI\Windows\BrowserTesting.xaml;GUI\Windows\FirstTimeSetup.xaml;GUI\Windows\MainWindow.xaml;GUI\Windows\PlaylistManager.xaml;
 
 False
 

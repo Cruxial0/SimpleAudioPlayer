@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SimpleAudioPlayer.GUI.Controls.SongListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleAudioPlayer.GUI.Controls"
+             mc:Ignorable="d" Height="170" Width="800" UseLayoutRounding="False" RenderTransformOrigin="100,100" Foreground="#00000000" Background="#00000000">
+    <Border x:Name="ImageBorder" CornerRadius="12,12,12,12"
+                BorderBrush="Transparent"
+                BorderThickness="1"
+                Padding="0">
+        <Border.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Border.RenderTransform>
+        <Border.Background>
+            <ImageBrush ImageSource="{Binding SongImageBackground}" Stretch="UniformToFill"/>
+        </Border.Background>
+
+        <Grid x:Name="Overlay_Fade" HorizontalAlignment="Left" Height="170" VerticalAlignment="Top" Width="800" Background="#A5000000">
+            <Label x:Name="lblSongName" Content="Caramel Heaven" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI Light" FontSize="35" Width="659"/>
+            <Label x:Name="lblArtist" Content="Last Note." HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" FontFamily="Segoe UI Light" Width="659"/>
+            <Label x:Name="lblSongLength" Content="3m 52s" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" FontFamily="Segoe UI Light" Width="659"/>
+            <Label x:Name="lblFileOrigin" Content="osu!" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" FontFamily="Segoe UI Light" Width="659"/>
+            <Image x:Name="imgBackground" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="674,34,0,0" Source="PlayButton.png" Stretch="UniformToFill" IsEnabled="False">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="Triangle@0,5x.png" Stretch="UniformToFill"/>
+                </Image.OpacityMask>
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
+                </Image.Effect>
+            </Image>
+            <Label x:Name="hiddenFilePath" Content="Label" HorizontalAlignment="Left" Margin="131,150,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        </Grid>
+    </Border>
+</UserControl>

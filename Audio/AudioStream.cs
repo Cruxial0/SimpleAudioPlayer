@@ -27,9 +27,6 @@ namespace SimpleAudioPlayer.Audio
 
         private PlaylistItem currentItem = null;
 
-        private DateTime currentTimestamp = new DateTime();
-        private Timestamps Timestamp = new Timestamps();
-
         public void PlaySong(PlaylistItem fileInfo, string Origin)
         {
             switch (Origin)

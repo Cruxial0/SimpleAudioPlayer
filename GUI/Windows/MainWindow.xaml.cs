@@ -247,7 +247,6 @@ namespace SimpleAudioPlayer
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            client.Deinitialize();
             client.Dispose();
 
             System.Windows.Application.Current.Shutdown();
@@ -274,8 +273,6 @@ namespace SimpleAudioPlayer
                     filtered.Add(song);
                 }
             }
-
-
 
             SongList.ItemsSource = filtered;
         }

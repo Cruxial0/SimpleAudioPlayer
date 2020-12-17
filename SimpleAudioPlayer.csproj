@@ -96,6 +96,9 @@
     <Compile Include="FileManager\ConfigManager.cs" />
     <Compile Include="FileManager\Playlist\PlaylistConverter.cs" />
     <Compile Include="FileManager\Playlist\PlaylistObject.cs" />
+    <Compile Include="GUI\Controls\SongListItem.xaml.cs">
+      <DependentUpon>SongListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Windows\PlaylistManager.xaml.cs">
       <DependentUpon>PlaylistManager.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
     <Compile Include="RPCHelper\OriginConvert.cs" />
     <Compile Include="SetupLogic\FirstTime.cs" />
     <Compile Include="SetupLogic\SetupOsu.cs" />
+    <Page Include="GUI\Controls\SongListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Windows\BrowserTesting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,6 +179,11 @@
   <ItemGroup>
     <Resource Include="604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png" />
     <Resource Include="GUI\Windows\604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png" />
+    <Resource Include="GUI\Controls\BG.jpg" />
+    <Resource Include="GUI\Controls\PlayButton.png" />
+    <Resource Include="GUI\Controls\Triangle%400,5x.png" />
+    <Resource Include="GUI\Windows\bg.png" />
+    <Resource Include="GUI\Controls\bg.png" />
     <Content Include="SampleSongs\Abstract - I%27m Good %28ft. RoZe%29 %28Prod. Drumma Battalion%29.mp3" />
     <Content Include="SampleSongs\Abstract - Neverland %28ft. Ruth B%29 %28Prod. Blulake%29.mp3" />
   </ItemGroup>

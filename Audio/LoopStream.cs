@@ -12,7 +12,6 @@ namespace SimpleAudioPlayer.Audio
     {
         WaveStream sourceStream;
 
-        private DateTime currentTimestamp = new DateTime();
         private Timestamps Timestamp = new Timestamps();
 
         private readonly RPCHelper.RPCHelper RPC = new RPCHelper.RPCHelper();
